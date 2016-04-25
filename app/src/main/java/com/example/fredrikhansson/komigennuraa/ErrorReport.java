@@ -1,12 +1,9 @@
 package com.example.fredrikhansson.komigennuraa;
 
 /**
- * Created by fredrikhansson on 4/21/16.
+ * A class that have all information of an error report
  */
 
-/**
- * Created by Mikael on 2016-04-20.
- */
 public class ErrorReport {
     private String id;
     private String symptom;
@@ -16,14 +13,12 @@ public class ErrorReport {
     private String busid;
 
     public ErrorReport(String id, String symptom, String comment, String busid, String pubdate, int grade){
-
         this.id = id;
         this.symptom = symptom;
         this.comment = comment;
         this.busid = busid;
         this.pubdate = pubdate;
         this.grade = grade;
-
     }
 
     public String getId() {

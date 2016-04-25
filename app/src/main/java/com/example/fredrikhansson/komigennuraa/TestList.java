@@ -31,10 +31,10 @@ public class TestList extends AppCompatActivity {
 
         mydb = new DbHelper(this);
 
-        //skapar lista och vy för visning av bussar
+        //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
         list=new ArrayList<String>();
-        list = mydb.getAllBuses(); //- Lägger till alla bussar i listan
+        list = mydb.getAllBuses(); // Adds all buses in the list
 
 
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);

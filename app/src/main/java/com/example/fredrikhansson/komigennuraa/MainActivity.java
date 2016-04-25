@@ -24,18 +24,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Metod för att visa alla felraporter i databasen via knapp
+    //Method for showing all error reports in the database via a button
     public void displayReport (View V){
             Intent i = new Intent(this, TestList.class);
             startActivity(i);
-
     }
 
-    //Metod för att lägga till rapporter i databas via knapp
+    //Method for adding reports in the database via a button
     public void addReport (View V){
-
-            mydb.insertErrorReport("a", "a", "a", "a", "b", 1);
-
+            mydb.insertErrorReport("b", "a", "a", "a", "b", 1);
     }
 
     public void testTable (){
