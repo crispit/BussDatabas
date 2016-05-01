@@ -11,26 +11,35 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
 
-    Button b1 = (Button) findViewById(R.id.colorButton1);
-    Button b2 = (Button) findViewById(R.id.colorButton2);
-    Button b3 = (Button) findViewById(R.id.colorButton3);
-    Button b4 = (Button) findViewById(R.id.colorButton4);
+    Button b1;
+    Button b2;
+    Button b3;
+    Button b4;
 
     DbHelper mydb;
+    boolean symptomSelected = false;
+    boolean gradeSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button sendButton = (Button)findViewById(R.id.button);
+        sendButton.setEnabled(false);
+
         mydb = new DbHelper(this);
-        //ArrayList array_list = mydb.getAllReports();
-        //ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
+
+        b1 = (Button) findViewById(R.id.colorButton1);
+        b2 = (Button) findViewById(R.id.colorButton2);
+        b3 = (Button) findViewById(R.id.colorButton3);
+        b4 = (Button) findViewById(R.id.colorButton4);
 
     }
 
@@ -44,13 +53,15 @@ public class MainActivity extends AppCompatActivity {
     //Method for adding reports in the database via a button
     public void addReport (View v){
         mydb.insertErrorReport("b", "a", "a", "a", "b", urgency);
+        resetScreen();
     }
 
     //Method that is called when selecting any of the color buttons
     public void selectColor (View v) {
         v.setSelected(true);
+        gradeSelected = true;
 
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.colorButton1:
                 b2.setSelected(false);
                 b3.setSelected(false);
@@ -76,17 +87,61 @@ public class MainActivity extends AppCompatActivity {
                 urgency = 4;
                 break;
         }
+        unLockSend();
+    }
 
-        //int c1 = v.getSolidColor();
-        //v.setBackgroundResource(R.drawable.border_button);
+    //Metod for opening a list of symptoms
+    public void symptomList(View V){
+        Intent i = new Intent(this, SymptomList.class);
+        startActivityForResult(i, 1);
+    }
 
-        //v.setBackgroundColor(c1);
+    //Method for catching the name of the symptom and adding it to an error report
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+               String symptom = data.getStringExtra("symptom");
+                Button symptomButton = (Button)findViewById(R.id.button2);
 
-        //Button B = (Button) findViewById(R.id.)
+                symptomButton.setText(symptom);
+
+                symptomSelected = true;
+                unLockSend();
+            }
+        }
+    }
+
+    //Method for unlocking the send button once a symptom and grade has been selected
+    public void unLockSend(){
+
+        if (gradeSelected && symptomSelected){
+            Button sendButton = (Button)findViewById(R.id.button);
+            sendButton.setEnabled(true);
+            sendButton.setBackgroundResource(R.drawable.buttonn);
+        }
 
     }
 
-    public void testTable (){
+    //Method for resetting the screen after sending an error report
+    public void resetScreen(){
+
+        symptomSelected = false;
+        gradeSelected = false;
+        Button symptomButton = (Button)findViewById(R.id.button2);
+        symptomButton.setText("Symptom");
+
+        Button sendButton = (Button)findViewById(R.id.button);
+        sendButton.setEnabled(false);
+        sendButton.setBackgroundResource(R.drawable.buttonn_grey);
+
+        b1.setSelected(false);
+        b2.setSelected(false);
+        b3.setSelected(false);
+        b4.setSelected(false);
+
 
     }
 

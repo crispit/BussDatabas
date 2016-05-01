@@ -26,10 +26,10 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="#ffffff"
-        android:background="@drawable/buttonn"
+        android:background="@drawable/buttonn_grey"
         android:text="SKICKA"
-        android:width="160dp"
-        android:height="60dp"
+        android:width="260dp"
+        android:height="80dp"
         android:textSize="30dp"
         android:layout_marginBottom="68dp"
         android:onClick="addReport"
@@ -38,12 +38,14 @@
 
     <LinearLayout
         android:id="@+id/linearButtons"
-        android:layout_below="@+id/Bdisplay"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="100" >
+        android:weightSum="100"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp">
 
         <Button
             android:layout_width="match_parent"
@@ -85,5 +87,29 @@
             android:background="@drawable/custom_button4"
             android:onClick="selectColor" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Symptom"
+        android:id="@+id/button2"
+        android:width="260dp"
+        android:height="80dp"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="symptomList"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Väl hur brådskande problemet är"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/linearButtons"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>

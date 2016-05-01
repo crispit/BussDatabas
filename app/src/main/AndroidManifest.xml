@@ -18,6 +18,10 @@
         <activity android:name=".TestList"
             android:label="testlist">
         </activity>
+        <activity android:name=".SymptomList"
+            android:label="symptomList">
+
+        </activity>
     </application>
 
 </manifest>
