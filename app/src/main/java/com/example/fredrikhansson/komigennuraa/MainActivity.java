@@ -14,6 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    int urgency;
+
+    Button b1 = (Button) findViewById(R.id.colorButton1);
+    Button b2 = (Button) findViewById(R.id.colorButton2);
+    Button b3 = (Button) findViewById(R.id.colorButton3);
+    Button b4 = (Button) findViewById(R.id.colorButton4);
+
     DbHelper mydb;
 
     @Override
@@ -36,13 +43,41 @@ public class MainActivity extends AppCompatActivity {
 
     //Method for adding reports in the database via a button
     public void addReport (View v){
-        mydb.insertErrorReport("b", "a", "a", "a", "b", 1);
+        mydb.insertErrorReport("b", "a", "a", "a", "b", urgency);
     }
 
+    //Method that is called when selecting any of the color buttons
     public void selectColor (View v) {
         v.setSelected(true);
 
-            //int c1 = v.getSolidColor();
+        switch(v.getId()) {
+            case R.id.colorButton1:
+                b2.setSelected(false);
+                b3.setSelected(false);
+                b4.setSelected(false);
+                urgency = 1;
+                break;
+            case R.id.colorButton2:
+                b1.setSelected(false);
+                b3.setSelected(false);
+                b4.setSelected(false);
+                urgency = 2;
+                break;
+            case R.id.colorButton3:
+                b1.setSelected(false);
+                b2.setSelected(false);
+                b4.setSelected(false);
+                urgency = 3;
+                break;
+            case R.id.colorButton4:
+                b1.setSelected(false);
+                b2.setSelected(false);
+                b3.setSelected(false);
+                urgency = 4;
+                break;
+        }
+
+        //int c1 = v.getSolidColor();
         //v.setBackgroundResource(R.drawable.border_button);
 
         //v.setBackgroundColor(c1);
