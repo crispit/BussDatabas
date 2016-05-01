@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="my.app"
     package="com.example.fredrikhansson.komigennuraa">
 
     <application
@@ -18,6 +18,12 @@
         <activity android:name=".TestList"
             android:label="testlist">
         </activity>
+        <activity android:name=".SymptomList"
+            android:label="symptomList">
+
+        </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
