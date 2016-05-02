@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         Button sendButton = (Button)findViewById(R.id.button);
         sendButton.setEnabled(false);
 
+        b1 = (Button) findViewById(R.id.colorButton1);
+        b2 = (Button) findViewById(R.id.colorButton2);
+        b3 = (Button) findViewById(R.id.colorButton3);
+        b4 = (Button) findViewById(R.id.colorButton4);
+
+
         calendar = Calendar.getInstance();
 
         busId = "Vin_Num_001";
@@ -51,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         mydb = new DBHelper(sharedContext);
 
-        b1 = (Button) findViewById(R.id.colorButton1);
-        b2 = (Button) findViewById(R.id.colorButton2);
-        b3 = (Button) findViewById(R.id.colorButton3);
-        b4 = (Button) findViewById(R.id.colorButton4);
 
     }
 

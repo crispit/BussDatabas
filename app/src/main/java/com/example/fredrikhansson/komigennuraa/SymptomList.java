@@ -17,7 +17,6 @@ public class SymptomList extends AppCompatActivity {
 
 
     ListView listView ;
-    DbHelper mydb;
     int clickPosition;
     ArrayAdapter adapter;
     private ArrayList<String> symptomList;
@@ -28,7 +27,7 @@ public class SymptomList extends AppCompatActivity {
         setContentView(R.layout.symptomlist);
 
 
-        mydb = new DbHelper(this);
+
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.symptomList);

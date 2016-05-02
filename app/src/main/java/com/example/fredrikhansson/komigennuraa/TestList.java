@@ -5,6 +5,7 @@ package com.example.fredrikhansson.komigennuraa;
  */
 
 
+import android.content.Context;
 import android.content.Intent;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
@@ -18,7 +19,7 @@ import android.content.Intent;
 public class TestList extends AppCompatActivity {
 
     ListView listView ;
-    DbHelper mydb;
+    DBHelper mydb;
     int clickPosition;
     ArrayAdapter adapter;
     private ArrayList<String> list;
@@ -29,7 +30,19 @@ public class TestList extends AppCompatActivity {
         setContentView(R.layout.testlist);
         ListView busList = new ListView(this.getBaseContext());
 
-        mydb = new DbHelper(this);
+        Context sharedContext = null;
+        try {
+            sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
+            if (sharedContext == null) {
+                return;
+            }
+        } catch (Exception e) {
+            String error = e.getMessage();
+            return;
+        }
+
+        mydb = new DBHelper(sharedContext);
+
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
