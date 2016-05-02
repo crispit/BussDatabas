@@ -1,18 +1,14 @@
 package com.example.fredrikhansson.komigennuraa;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
-import android.hardware.camera2.params.BlackLevelPattern;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.util.ArrayList;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
@@ -22,9 +18,13 @@ public class MainActivity extends AppCompatActivity {
     Button b3;
     Button b4;
 
-    DbHelper mydb;
+    DBHelper mydb;
+    String busId;
+    String symptom;
     boolean symptomSelected = false;
     boolean gradeSelected = false;
+
+    Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,22 @@ public class MainActivity extends AppCompatActivity {
         Button sendButton = (Button)findViewById(R.id.button);
         sendButton.setEnabled(false);
 
-        mydb = new DbHelper(this);
+        calendar = Calendar.getInstance();
+
+        busId = "Vin_Num_001";
+
+        Context sharedContext = null;
+        try {
+            sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
+            if (sharedContext == null) {
+                return;
+            }
+        } catch (Exception e) {
+            String error = e.getMessage();
+            return;
+        }
+
+        mydb = new DBHelper(sharedContext);
 
         b1 = (Button) findViewById(R.id.colorButton1);
         b2 = (Button) findViewById(R.id.colorButton2);
@@ -47,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
     //Method for showing all error reports in the database via a button
     public void displayReport (View V){
         Intent i = new Intent(this, TestList.class);
-            startActivity(i);
+        startActivity(i);
     }
 
     //Method for adding reports in the database via a button
     public void addReport (View v){
-        mydb.insertErrorReport("b", "a", "a", "a", "b", urgency);
+        new RetrieveBusData().execute("Test");
         resetScreen();
     }
 
@@ -103,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-               String symptom = data.getStringExtra("symptom");
+                symptom = data.getStringExtra("symptom");
                 Button symptomButton = (Button)findViewById(R.id.button2);
 
                 symptomButton.setText(symptom);
@@ -145,4 +160,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private class RetrieveBusData extends AsyncTask<String, String, String> {
+
+        private Exception exception;
+
+        protected String doInBackground(String... str) {
+            try {
+
+                mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Funkar det? Borde va 9 nu!!", busId, calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND), urgency,
+                        BusData.getBusInfo(busId,"Accelerator_Pedal_Position"),
+                        BusData.getBusInfo(busId,"Ambient_Temperature"), BusData.getBusInfo(busId,"At_Stop"),
+                        BusData.getBusInfo(busId,"Cooling_Air_Conditioning"), BusData.getBusInfo(busId,"Driver_Cabin_Temperature"),
+                        BusData.getBusInfo(busId,"Fms_Sw_Version_Supported"), BusData.getBusInfo(busId,"GPS"),
+                        BusData.getBusInfo(busId,"GPS2"), BusData.getBusInfo(busId,"GPS_NMEA"),
+                        BusData.getBusInfo(busId,"Journey_Info"), BusData.getBusInfo(busId,"Mobile_Network_Cell_Info"),
+                        BusData.getBusInfo(busId,"Mobile_Network_Signal_Strength"), BusData.getBusInfo(busId,"Next_Stop"),
+                        BusData.getBusInfo(busId,"Offroute"), BusData.getBusInfo(busId,"Online_Users"),
+                        BusData.getBusInfo(busId,"Opendoor"), BusData.getBusInfo(busId,"Position_Of_Doors"),
+                        BusData.getBusInfo(busId,"Pram_Request"), BusData.getBusInfo(busId,"Ramp_Wheel_Chair_Lift"),
+                        BusData.getBusInfo(busId,"Status_2_Of_Doors"), BusData.getBusInfo(busId,"Stop_Pressed"),
+                        BusData.getBusInfo(busId,"Stop_Request"), BusData.getBusInfo(busId,"Total_Vehicle_Distance"),
+                        BusData.getBusInfo(busId,"Turn_Signals"), BusData.getBusInfo(busId,"Wlan_Connectivity"));
+
+            } catch (Exception e) {
+                this.exception = e;
+                return "Could not insert!";
+            }
+            return "Insertion successful!";
+        }
+
+        protected void onPostExecute() {
+            // TODO: check this.exception
+            // TODO: do something with the feed
+        }
+    }
+
 }
+
