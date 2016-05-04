@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     DBHelper mydb;
     String busId;
     String symptom;
+    String status;
     boolean symptomSelected = false;
     boolean gradeSelected = false;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         busId = "Vin_Num_001";
+        status = "new";
 
         Context sharedContext = null;
         try {
@@ -172,8 +174,9 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... str) {
             try {
 
-                mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Funkar det? Borde va 9 nu!!", busId, calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND), urgency,
-                        BusData.getBusInfo(busId,"Accelerator_Pedal_Position"),
+                mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Funkar det? Borde va 9 nu!!", busId,
+                        calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),
+                        urgency, status, BusData.getBusInfo(busId,"Accelerator_Pedal_Position"),
                         BusData.getBusInfo(busId,"Ambient_Temperature"), BusData.getBusInfo(busId,"At_Stop"),
                         BusData.getBusInfo(busId,"Cooling_Air_Conditioning"), BusData.getBusInfo(busId,"Driver_Cabin_Temperature"),
                         BusData.getBusInfo(busId,"Fms_Sw_Version_Supported"), BusData.getBusInfo(busId,"GPS"),
