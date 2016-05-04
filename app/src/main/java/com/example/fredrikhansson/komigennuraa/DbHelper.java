@@ -23,6 +23,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_DATE = "Date";
     public static final String COLUMN_NAME_COMMENT = "Comment";
     public static final String COLUMN_NAME_GRADE = "Grade";
+    public static final String COLUMN_NAME_STATUS = "Status";
 
     //Busspecifik data
     public static final String COLUMN_NAME_Accelerator_Pedal_Position = "Accelerator_Pedal_Position";
@@ -66,6 +67,7 @@ public class DBHelper extends SQLiteOpenHelper{
             COLUMN_NAME_BUSID + TEXT_TYPE  + COMMA_SEP +
             COLUMN_NAME_DATE + TEXT_TYPE  + COMMA_SEP +
             COLUMN_NAME_GRADE + NUMBER_TYPE + COMMA_SEP +
+            COLUMN_NAME_STATUS + NUMBER_TYPE + COMMA_SEP +
             COLUMN_NAME_Accelerator_Pedal_Position + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_Ambient_Temperature + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_At_Stop + TEXT_TYPE + COMMA_SEP +
@@ -96,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS" +
             TABLE_NAME;
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "Database.db";
 
     //konstruktor
@@ -133,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper{
      * @param grade
      * @return
      */
-    public boolean insertErrorReport(String errorID, String symptom, String comment, String busID, String date, int grade,
+    public boolean insertErrorReport(String errorID, String symptom, String comment, String busID, String date, int grade, String status,
                                      String accelerator_Pedal_Position, String ambient_Temperature, String at_Stop, String cooling_Air_Conditioning,
                                      String driver_Cabin_Temperature, String fms_Sw_Version_Supported, String gps, String gps2,
                                      String gps_nmea, String journey_Info, String mobile_Network_Cell_Info, String mobile_Network_Signal_Strength,
@@ -148,6 +150,7 @@ public class DBHelper extends SQLiteOpenHelper{
         contentValues.put("BusID", busID);
         contentValues.put("Date", date);
         contentValues.put("Grade", grade);
+        contentValues.put("Status", status);
         contentValues.put("Accelerator_Pedal_Position", accelerator_Pedal_Position);
         contentValues.put("Ambient_Temperature", ambient_Temperature);
         contentValues.put("At_Stop", at_Stop);
@@ -190,6 +193,38 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /**
+     * Metod fˆr att radera en felrapport med ett specifikt errorId
+     * @param errorId unique ID for the error report which to update
+     * @param grade the updated urgency of the error
+     * @param symptom the updated symptom of the error
+     * @param symptom the updated comment of the error
+     */
+    public void updateErrorReport(String errorId, String grade, String symptom, String comment, String status){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Grade", grade);
+        contentValues.put("Symptom", symptom);
+        contentValues.put("Comment", comment);
+        contentValues.put("Status", status);
+
+        db.update("ErrorReport", contentValues, "errorId = ? ", new String[]{errorId});
+
+    }
+
+    /**
+     * Method to delete a specific error report for an unique error id
+     * @param errorId unique ID for the error report which to delete
+     */
+    public void deletErrorReport(String errorId){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete("ErrorReport", "errorId = ? ", new String[]{errorId});
+
+    }
+
+    /**
      * Metod som returnerar en arraylist med alla rapporter i databasen
      */
     public ArrayList<String> getAllReports() {
@@ -225,7 +260,8 @@ public class DBHelper extends SQLiteOpenHelper{
                     res.getString(res.getColumnIndex(COLUMN_NAME_COMMENT)),
                     res.getString(res.getColumnIndex(COLUMN_NAME_BUSID)),
                     res.getString(res.getColumnIndex(COLUMN_NAME_DATE)),
-                    res.getInt(res.getColumnIndex(COLUMN_NAME_GRADE)));
+                    res.getInt(res.getColumnIndex(COLUMN_NAME_GRADE)),
+                    res.getString(res.getColumnIndex(COLUMN_NAME_STATUS)));
             array_list.add(er);
             res.moveToNext();
         }

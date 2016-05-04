@@ -7,33 +7,40 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.fredrikhansson.komigennuraa.MainActivity">
+    tools:context="com.example.fredrikhansson.komigennuraa.UpdateReport">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DisplayReports"
-        android:id="@+id/Bdisplay"
-        android:onClick="displayReport"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="#d50000"
-        android:textColor="#ffffff" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:background="@drawable/buttonn_grey"
-        android:text="SKICKA"
+        android:text="Symptom"
+        android:id="@+id/symptombutton"
         android:width="260dp"
         android:height="80dp"
         android:textSize="30dp"
-        android:layout_marginBottom="68dp"
-        android:onClick="addReport"
-        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:onClick="symptomList"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gradering av problem"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/gradebutton"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:background="@drawable/custom_button4"
+        android:onClick="setGrade"
+        android:textSize="50dp"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
@@ -42,74 +49,53 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="100"
-        android:layout_above="@+id/button2"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="44dp">
+        android:layout_alignParentStart="true">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/colorButton1"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_weight="25"
-            android:background="@drawable/custom_button1"
-            android:onClick="selectColor" />
+            android:id="@+id/updatebutton"
+            android:layout_width="196dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/buttonn_grey"
+            android:text="UPPDATERA"
+            android:width="260dp"
+            android:height="80dp"
+            android:textSize="30dp"
+            android:onClick="updateReport"
+            android:layout_alignTop="@+id/deletebutton"
+            android:layout_toStartOf="@+id/gradebutton"
+            android:layout_toLeftOf="@+id/gradebutton" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/colorButton2"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_weight="25"
-            android:background="@drawable/custom_button2"
-            android:onClick="selectColor" />
+            android:id="@+id/deletebutton"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/buttonn_grey"
+            android:text="RADERA"
+            android:width="260dp"
+            android:height="80dp"
+            android:textSize="30dp"
+            android:onClick="deleteReport"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/gradebutton"
+            android:layout_toEndOf="@+id/gradebutton" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/colorButton3"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_weight="25"
-            android:background="@drawable/custom_button3"
-            android:onClick="selectColor" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/colorButton4"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_weight="25"
-            android:background="@drawable/custom_button4"
-            android:onClick="selectColor" />
     </LinearLayout>
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Symptom"
-        android:id="@+id/button2"
-        android:width="260dp"
-        android:height="80dp"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:layout_centerVertical="true"
+        android:id="@+id/editText"
+        android:hint="Fyll i din kommentar till felrapporten."
+        android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:onClick="symptomList"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Väl hur brådskande problemet är"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/linearButtons"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
-        android:layout_marginBottom="10dp"/>
+        android:layout_above="@+id/linearButtons" />
 
 </RelativeLayout>

@@ -56,9 +56,11 @@ public class TestList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-               // Intent intent = new Intent(view.getContext(),BusInfo.class);
-                //TODO: Skapa en bundle och skicka med data för vilken buss som ska öppnas
-                //startActivity(intent);
+                Intent i = new Intent(view.getContext(), UpdateReport.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("errorId",list.get(position).getId());
+                i.putExtras(bundle);
+                startActivity(i);
             }
 
         });

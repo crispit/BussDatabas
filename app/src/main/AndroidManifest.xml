@@ -22,6 +22,10 @@
             android:label="symptomList">
 
         </activity>
+        <activity android:name=".UpdateReport"
+            android:label="updateReport">
+
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

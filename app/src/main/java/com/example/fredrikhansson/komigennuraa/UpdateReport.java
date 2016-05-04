@@ -2,16 +2,28 @@ package com.example.fredrikhansson.komigennuraa;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
-import java.util.Calendar;
 
 public class UpdateReport extends AppCompatActivity {
-    int urgency;
+
+    Button gradeButton;
+    Button updateButton;
+    Button deleteButton;
+    Button symptomButton;
+    EditText commentField;
+    PopupWindow popupMessage;
 
     Button b1;
     Button b2;
@@ -20,31 +32,27 @@ public class UpdateReport extends AppCompatActivity {
 
     DBHelper mydb;
     String busId;
+    String errorId;
     String symptom;
     String status;
+    String grade;
     boolean symptomSelected = false;
     boolean gradeSelected = false;
 
-    Calendar calendar;
+    Cursor cur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_updatereport);
 
-        Button sendButton = (Button)findViewById(R.id.button);
-        sendButton.setEnabled(false);
+        updateButton = (Button)findViewById(R.id.updatebutton);
+        deleteButton = (Button)findViewById(R.id.deletebutton);
+        symptomButton = (Button)findViewById(R.id.symptombutton);
+        gradeButton = (Button) findViewById(R.id.gradebutton);
+        commentField = (EditText) findViewById(R.id.editText);
 
-        b1 = (Button) findViewById(R.id.colorButton1);
-        b2 = (Button) findViewById(R.id.colorButton2);
-        b3 = (Button) findViewById(R.id.colorButton3);
-        b4 = (Button) findViewById(R.id.colorButton4);
-
-
-        calendar = Calendar.getInstance();
-
-        busId = "Vin_Num_001";
-        status = "new";
+        errorId = getIntent().getStringExtra("errorId");
 
         Context sharedContext = null;
         try {
@@ -59,6 +67,40 @@ public class UpdateReport extends AppCompatActivity {
 
         mydb = new DBHelper(sharedContext);
 
+        cur = mydb.getData(errorId);
+        cur.moveToFirst();
+
+        //updateButton.setEnabled(false);
+
+        grade = cur.getString(cur.getColumnIndex("Grade"));
+        symptom = cur.getString(cur.getColumnIndex("Symptom"));
+
+        setGradeButtonColor();
+
+        symptomButton.setText(symptom);
+
+    }
+
+    public void setGradeButtonColor(){
+
+        switch (grade) {
+            case "1":
+                gradeButton.setBackgroundResource(R.drawable.custom_button1);
+                gradeButton.setText("1");
+                break;
+            case "2":
+                gradeButton.setBackgroundResource(R.drawable.custom_button2);
+                gradeButton.setText("2");
+                break;
+            case "3":
+                gradeButton.setBackgroundResource(R.drawable.custom_button3);
+                gradeButton.setText("3");
+                break;
+            case "4":
+                gradeButton.setBackgroundResource(R.drawable.custom_button4);
+                gradeButton.setText("4");
+                break;
+        }
 
     }
 
@@ -67,55 +109,82 @@ public class UpdateReport extends AppCompatActivity {
     public void displayReport (View V){
         Intent i = new Intent(this, TestList.class);
         Bundle bundle = new Bundle();
-        bundle.putString("busId",busId);
+        bundle.putString("busId", busId);
         i.putExtras(bundle);
         startActivity(i);
     }
 
-    //Method for adding reports in the database via a button
-    public void addReport (View v){
-        new RetrieveBusData().execute("Test");
-        resetScreen();
+    //Method for updating reports in the database via a button
+    public void updateReport (View v){
+        String comment = commentField.getText().toString();
+        System.out.println(comment);
+        mydb.updateErrorReport(errorId, grade, symptom, comment, "completed");
+        finish();
     }
 
-    //Method that is called when selecting any of the color buttons
-    public void selectColor (View v) {
-        v.setSelected(true);
-        gradeSelected = true;
-
-        switch (v.getId()) {
-            case R.id.colorButton1:
-                b2.setSelected(false);
-                b3.setSelected(false);
-                b4.setSelected(false);
-                urgency = 1;
-                break;
-            case R.id.colorButton2:
-                b1.setSelected(false);
-                b3.setSelected(false);
-                b4.setSelected(false);
-                urgency = 2;
-                break;
-            case R.id.colorButton3:
-                b1.setSelected(false);
-                b2.setSelected(false);
-                b4.setSelected(false);
-                urgency = 3;
-                break;
-            case R.id.colorButton4:
-                b1.setSelected(false);
-                b2.setSelected(false);
-                b3.setSelected(false);
-                urgency = 4;
-                break;
-        }
-        unLockSend();
+    //Method for deleting reports in the database via a button
+    public void deleteReport (View v){
+        mydb.deletErrorReport(errorId);
+        finish();
     }
 
     //Metod for opening a list of symptoms
     public void symptomList(View V){
         Intent i = new Intent(this, SymptomList.class);
         startActivityForResult(i, 1);
+    }
+
+    public void setGrade(View v){
+        popupInit(v);
+    }
+
+    public void popupInit(View v) {
+        //popupButton.setOnClickListener(this);
+        //insidePopupButton.setOnClickListener(this);
+
+        try{
+
+        LayoutInflater inflater = (LayoutInflater) UpdateReport.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.dialog_choose_grade, (ViewGroup) findViewById(R.id.gradeLayout));
+        popupMessage = new PopupWindow(layout, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            popupMessage.setBackgroundDrawable(new BitmapDrawable());
+            popupMessage.setOutsideTouchable(true);
+        popupMessage.showAtLocation(v, Gravity.CENTER, 0, -100);
+
+            b1 = (Button) findViewById(R.id.cButton1);
+            b2 = (Button) findViewById(R.id.cButton2);
+            b3 = (Button) findViewById(R.id.cButton3);
+            b4 = (Button) findViewById(R.id.cButton4);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gradeSelected(View v) {
+
+        switch (v.getId()) {
+            case R.id.cButton1:
+                grade = "1";
+                popupMessage.dismiss();
+                resetScreen();
+                break;
+            case R.id.cButton2:
+                grade = "2";
+                popupMessage.dismiss();
+                resetScreen();
+                break;
+            case R.id.cButton3:
+                grade = "3";
+                popupMessage.dismiss();
+                resetScreen();
+                break;
+            case R.id.cButton4:
+                grade = "4";
+                popupMessage.dismiss();
+                resetScreen();
+                break;
+        }
     }
 
     //Method for catching the name of the symptom and adding it to an error report
@@ -126,7 +195,7 @@ public class UpdateReport extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 symptom = data.getStringExtra("symptom");
-                Button symptomButton = (Button)findViewById(R.id.button2);
+                //symptomButton = (Button)findViewById(R.id.button2);
 
                 symptomButton.setText(symptom);
 
@@ -141,8 +210,8 @@ public class UpdateReport extends AppCompatActivity {
 
         if (gradeSelected && symptomSelected){
             Button sendButton = (Button)findViewById(R.id.button);
-            sendButton.setEnabled(true);
-            sendButton.setBackgroundResource(R.drawable.buttonn);
+            updateButton.setEnabled(true);
+            updateButton.setBackgroundResource(R.drawable.buttonn);
         }
 
     }
@@ -152,55 +221,15 @@ public class UpdateReport extends AppCompatActivity {
 
         symptomSelected = false;
         gradeSelected = false;
-        Button symptomButton = (Button)findViewById(R.id.button2);
+        //Button symptomButton = (Button)findViewById(R.id.button2);
         symptomButton.setText("Symptom");
+        gradeButton.setText(grade);
+        setGradeButtonColor();
 
         Button sendButton = (Button)findViewById(R.id.button);
-        sendButton.setEnabled(false);
-        sendButton.setBackgroundResource(R.drawable.buttonn_grey);
+        updateButton.setEnabled(false);
+        updateButton.setBackgroundResource(R.drawable.buttonn_grey);
 
-        b1.setSelected(false);
-        b2.setSelected(false);
-        b3.setSelected(false);
-        b4.setSelected(false);
-
-
-    }
-
-    private class RetrieveBusData extends AsyncTask<String, String, String> {
-
-        private Exception exception;
-
-        protected String doInBackground(String... str) {
-            try {
-
-                mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Funkar det? Borde va 9 nu!!", busId,
-                        calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),
-                        urgency, status, BusData.getBusInfo(busId,"Accelerator_Pedal_Position"),
-                        BusData.getBusInfo(busId,"Ambient_Temperature"), BusData.getBusInfo(busId,"At_Stop"),
-                        BusData.getBusInfo(busId,"Cooling_Air_Conditioning"), BusData.getBusInfo(busId,"Driver_Cabin_Temperature"),
-                        BusData.getBusInfo(busId,"Fms_Sw_Version_Supported"), BusData.getBusInfo(busId,"GPS"),
-                        BusData.getBusInfo(busId,"GPS2"), BusData.getBusInfo(busId,"GPS_NMEA"),
-                        BusData.getBusInfo(busId,"Journey_Info"), BusData.getBusInfo(busId,"Mobile_Network_Cell_Info"),
-                        BusData.getBusInfo(busId,"Mobile_Network_Signal_Strength"), BusData.getBusInfo(busId,"Next_Stop"),
-                        BusData.getBusInfo(busId,"Offroute"), BusData.getBusInfo(busId,"Online_Users"),
-                        BusData.getBusInfo(busId,"Opendoor"), BusData.getBusInfo(busId,"Position_Of_Doors"),
-                        BusData.getBusInfo(busId,"Pram_Request"), BusData.getBusInfo(busId,"Ramp_Wheel_Chair_Lift"),
-                        BusData.getBusInfo(busId,"Status_2_Of_Doors"), BusData.getBusInfo(busId,"Stop_Pressed"),
-                        BusData.getBusInfo(busId,"Stop_Request"), BusData.getBusInfo(busId,"Total_Vehicle_Distance"),
-                        BusData.getBusInfo(busId,"Turn_Signals"), BusData.getBusInfo(busId,"Wlan_Connectivity"));
-
-            } catch (Exception e) {
-                this.exception = e;
-                return "Could not insert!";
-            }
-            return "Insertion successful!";
-        }
-
-        protected void onPostExecute() {
-            // TODO: check this.exception
-            // TODO: do something with the feed
-        }
     }
 
 }
