@@ -18,7 +18,7 @@ import android.content.Intent;
 public class TestList extends AppCompatActivity {
 
     ListView listView ;
-    DbHelper mydb;
+    DBHelper mydb;
     int clickPosition;
     ArrayAdapter adapter;
     private ArrayList<String> list;
@@ -29,7 +29,7 @@ public class TestList extends AppCompatActivity {
         setContentView(R.layout.testlist);
         ListView busList = new ListView(this.getBaseContext());
 
-        mydb = new DbHelper(this);
+        mydb = new DBHelper(this);
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
