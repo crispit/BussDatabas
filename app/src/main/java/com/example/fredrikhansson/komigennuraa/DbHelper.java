@@ -1,19 +1,21 @@
 package com.example.fredrikhansson.komigennuraa;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
+
+        import android.content.ContentValues;
+        import android.content.Context;
+        import android.database.Cursor;
+        import android.database.sqlite.SQLiteDatabase;
+        import android.database.sqlite.SQLiteOpenHelper;
+
+        import java.util.ArrayList;
 
 /**
  * Created by fredrikhansson on 4/18/16.
  */
 public class DBHelper extends SQLiteOpenHelper{
 
-    //Oföränderliga strängar som används till skapande av databasen
+    //Ofˆr‰nderliga str‰ngar som anv‰nds till skapande av databasen
     public static final String TABLE_NAME = "ErrorReport";
     public static final String COLUMN_NAME_ENTRYID = "ErrorID";
     public static final String COLUMN_NAME_SYMPTOM = "Symptom";
@@ -90,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper{
             COLUMN_NAME_Turn_Signals + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_Wlan_Connectivity + TEXT_TYPE + ")"  ;
 
-    //Sträng för att droppa vår databas i SQL
+    //Str‰ng fˆr att droppa vÂr databas i SQL
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS" +
             TABLE_NAME;
 
@@ -113,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /**
-     * Metod för upgradering av databasen
+     * Metod fˆr upgradering av databasen
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -122,7 +124,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /**
-     * Metod för insättning av felrapporter i databasen
+     * Metod fˆr ins‰ttning av felrapporter i databasen
      * @param errorID
      * @param symptom
      * @param busID
@@ -177,7 +179,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /**
-     * Metod för att hitta en felrapport med ett specifikt errorId
+     * Metod fˆr att hitta en felrapport med ett specifikt errorId
      * @param id
      * @return en cursor
      */
@@ -205,8 +207,8 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /**
-     * Metod för att hitta alla felraporten för en specifik buss
-     * @param busID id för att identifiera en specifik buss
+     * Metod fˆr att hitta alla felraporten fˆr en specifik buss
+     * @param busID id fˆr att identifiera en specifik buss
      */
     public ArrayList<ErrorReport> getBusReports(String busID) {
         ArrayList<ErrorReport> array_list = new ArrayList<>();
@@ -232,7 +234,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     /**
-     * Metod för att returnera alla unika bussar (med fel)
+     * Metod fˆr att returnera alla unika bussar (med fel)
      * @return arraylist med bussar som har felrapporter
      */
     public ArrayList<String> getAllBuses() {
