@@ -9,4 +9,8 @@
     <color name="orangeb1">#ffab00</color>
     <color name="orangeb2">#ff6d00</color>
     <color name="red">#dd2c00</color>
+
+    <color name="blue">#ff2570ba</color>
+    <color name="grey">#f7f7f7</color>
+    <color name="greyDark">#d9d9d9</color>
 </resources>
