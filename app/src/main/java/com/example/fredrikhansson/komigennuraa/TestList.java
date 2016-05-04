@@ -22,7 +22,8 @@ public class TestList extends AppCompatActivity {
     DBHelper mydb;
     int clickPosition;
     ArrayAdapter adapter;
-    private ArrayList<String> list;
+    private ArrayList<ErrorReport> list;
+    String busId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +44,14 @@ public class TestList extends AppCompatActivity {
 
         mydb = new DBHelper(sharedContext);
 
+        busId = getIntent().getStringExtra("busId");
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
-        list=new ArrayList<String>();
-        list = mydb.getAllBuses(); // Adds all buses in the list
+        //list=new ArrayList<>();
+        list = mydb.getBusReports(busId); // Adds all buses in the list
 
-
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
-        listView.setAdapter(adapter);
+        setAdapterToListview();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,6 +63,12 @@ public class TestList extends AppCompatActivity {
 
         });
 
+    }
+
+    public void setAdapterToListview() {
+        ListRowAdapter objAdapter = new ListRowAdapter(TestList.this,
+                R.layout.row, list);
+        listView.setAdapter(objAdapter);
     }
 
 
