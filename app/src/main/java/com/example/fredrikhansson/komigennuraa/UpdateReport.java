@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 
 public class UpdateReport extends AppCompatActivity {
@@ -31,13 +34,11 @@ public class UpdateReport extends AppCompatActivity {
     Button b4;
 
     DBHelper mydb;
-    String busId;
     String errorId;
     String symptom;
-    String status;
     String grade;
-    boolean symptomSelected = false;
-    boolean gradeSelected = false;
+
+    boolean commentSelected = false;
 
     Cursor cur;
 
@@ -46,14 +47,35 @@ public class UpdateReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updatereport);
 
+        //creating buttons and comment field
         updateButton = (Button)findViewById(R.id.updatebutton);
         deleteButton = (Button)findViewById(R.id.deletebutton);
         symptomButton = (Button)findViewById(R.id.symptombutton);
         gradeButton = (Button) findViewById(R.id.gradebutton);
         commentField = (EditText) findViewById(R.id.editText);
 
+        //adding a listener to the comment field
+        commentField.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                commentSelected=true;
+                unLockSend();
+
+            }
+        });
+
+        //fetching the id for the error report
         errorId = getIntent().getStringExtra("errorId");
 
+        //Setting the context for the database to the shared database
         Context sharedContext = null;
         try {
             sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
@@ -70,17 +92,16 @@ public class UpdateReport extends AppCompatActivity {
         cur = mydb.getData(errorId);
         cur.moveToFirst();
 
-        //updateButton.setEnabled(false);
+        updateButton.setEnabled(false);
 
         grade = cur.getString(cur.getColumnIndex("Grade"));
         symptom = cur.getString(cur.getColumnIndex("Symptom"));
-
         setGradeButtonColor();
-
         symptomButton.setText(symptom);
 
-    }
+    }//onCreate
 
+    //Method for setting number and color on the grade buttons.
     public void setGradeButtonColor(){
 
         switch (grade) {
@@ -102,45 +123,35 @@ public class UpdateReport extends AppCompatActivity {
                 break;
         }
 
-    }
+    }//setGradeButtonColor
 
-
-    //Method for showing all error reports in the database via a button
-    public void displayReport (View V){
-        Intent i = new Intent(this, TestList.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("busId", busId);
-        i.putExtras(bundle);
-        startActivity(i);
-    }
-
-    //Method for updating reports in the database via a button
+    //Method for updating reports and changing status to completed in the database via a button
     public void updateReport (View v){
         String comment = commentField.getText().toString();
-        System.out.println(comment);
         mydb.updateErrorReport(errorId, grade, symptom, comment, "completed");
+        Intent i = new Intent();
+        i.putExtra("action", "refresh");
+        setResult(RESULT_OK, i);
         finish();
-    }
+    }//updateReport
 
     //Method for deleting reports in the database via a button
     public void deleteReport (View v){
         mydb.deletErrorReport(errorId);
+        Intent i = new Intent();
+        i.putExtra("action", "refresh");
+        setResult(RESULT_OK, i);
         finish();
-    }
+    }//deleteReport
 
     //Metod for opening a list of symptoms
     public void symptomList(View V){
         Intent i = new Intent(this, SymptomList.class);
         startActivityForResult(i, 1);
-    }
+    }//symptomList
 
-    public void setGrade(View v){
-        popupInit(v);
-    }
-
-    public void popupInit(View v) {
-        //popupButton.setOnClickListener(this);
-        //insidePopupButton.setOnClickListener(this);
+    //Method for selecting a new grade. Opens up a popup-window from which to choose.
+    public void setGrade(View v) {
 
         try{
 
@@ -159,8 +170,9 @@ public class UpdateReport extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }//setGrade
 
+    //Method called when a new grade is selected.
     public void gradeSelected(View v) {
 
         switch (v.getId()) {
@@ -185,7 +197,7 @@ public class UpdateReport extends AppCompatActivity {
                 resetScreen();
                 break;
         }
-    }
+    }//gradeSelected
 
     //Method for catching the name of the symptom and adding it to an error report
     @Override
@@ -195,42 +207,29 @@ public class UpdateReport extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 symptom = data.getStringExtra("symptom");
-                //symptomButton = (Button)findViewById(R.id.button2);
-
                 symptomButton.setText(symptom);
-
-                symptomSelected = true;
-                unLockSend();
             }
         }
-    }
+    }//onActivityResult
 
-    //Method for unlocking the send button once a symptom and grade has been selected
+    //Method for unlocking the send button once a comment has been selected
     public void unLockSend(){
 
-        if (gradeSelected && symptomSelected){
-            Button sendButton = (Button)findViewById(R.id.button);
+        if (commentSelected){
             updateButton.setEnabled(true);
             updateButton.setBackgroundResource(R.drawable.buttonn);
         }
 
-    }
+    }//unLockSend
 
     //Method for resetting the screen after sending an error report
     public void resetScreen(){
 
-        symptomSelected = false;
-        gradeSelected = false;
-        //Button symptomButton = (Button)findViewById(R.id.button2);
         symptomButton.setText("Symptom");
         gradeButton.setText(grade);
         setGradeButtonColor();
 
-        Button sendButton = (Button)findViewById(R.id.button);
-        updateButton.setEnabled(false);
-        updateButton.setBackgroundResource(R.drawable.buttonn_grey);
-
-    }
+    }//resetScreen
 
 }
 

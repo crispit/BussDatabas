@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         busId = "Vin_Num_001";
         status = "uncompleted";
 
+        //Setting the context for the database to the shared database
         Context sharedContext = null;
         try {
             sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Class where the new error report is inserted to the databases
     private class RetrieveBusData extends AsyncTask<String, String, String> {
 
         private Exception exception;

@@ -20,8 +20,6 @@ public class TestList extends AppCompatActivity {
 
     ListView listView ;
     DBHelper mydb;
-    int clickPosition;
-    ArrayAdapter adapter;
     private ArrayList<ErrorReport> list;
     String busId;
 
@@ -29,8 +27,8 @@ public class TestList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testlist);
-        ListView busList = new ListView(this.getBaseContext());
 
+        //Setting the context for the database to the shared database
         Context sharedContext = null;
         try {
             sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
@@ -49,7 +47,7 @@ public class TestList extends AppCompatActivity {
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
         //list=new ArrayList<>();
-        list = mydb.getBusReports(busId); // Adds all buses in the list
+        list = mydb.getBusReports(busId); // Adds all reports in the list
 
         setAdapterToListview();
 
@@ -60,18 +58,32 @@ public class TestList extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("errorId",list.get(position).getId());
                 i.putExtras(bundle);
-                startActivity(i);
+                startActivityForResult(i, 2);
             }
 
         });
 
-    }
+    }//onCreate
 
+    //Method for updating the reports list after a change
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 2) {
+
+            System.out.print("bajs");
+
+            list = mydb.getBusReports(busId); // Adds all reports in the list
+            setAdapterToListview();
+        }
+    }//onActivityResult
+
+    //Method for adding the adapter to the listview.
     public void setAdapterToListview() {
         ListRowAdapter objAdapter = new ListRowAdapter(TestList.this,
                 R.layout.row, list);
         listView.setAdapter(objAdapter);
-    }
+    }//setAdapterToListview
 
 
 }
