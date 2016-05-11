@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
 
-        busId = "Vin_Num_001";
+        busId = "100021";//Vin_Num_001
         status = "uncompleted";
 
         //Setting the context for the database to the shared database
@@ -175,22 +176,16 @@ public class MainActivity extends AppCompatActivity {
 
         protected String doInBackground(String... str) {
             try {
-
+                HashMap<String,String> map = BusData.getAllBusInfo(busId);
                 mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Kommentar saknas...", busId,
                         calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),
-                        urgency, status, BusData.getBusInfo(busId,"Accelerator_Pedal_Position"),
-                        BusData.getBusInfo(busId,"Ambient_Temperature"), BusData.getBusInfo(busId,"At_Stop"),
-                        BusData.getBusInfo(busId,"Cooling_Air_Conditioning"), BusData.getBusInfo(busId,"Driver_Cabin_Temperature"),
-                        BusData.getBusInfo(busId,"Fms_Sw_Version_Supported"), BusData.getBusInfo(busId,"GPS"),
-                        BusData.getBusInfo(busId,"GPS2"), BusData.getBusInfo(busId,"GPS_NMEA"),
-                        BusData.getBusInfo(busId,"Journey_Info"), BusData.getBusInfo(busId,"Mobile_Network_Cell_Info"),
-                        BusData.getBusInfo(busId,"Mobile_Network_Signal_Strength"), BusData.getBusInfo(busId,"Next_Stop"),
-                        BusData.getBusInfo(busId,"Offroute"), BusData.getBusInfo(busId,"Online_Users"),
-                        BusData.getBusInfo(busId,"Opendoor"), BusData.getBusInfo(busId,"Position_Of_Doors"),
-                        BusData.getBusInfo(busId,"Pram_Request"), BusData.getBusInfo(busId,"Ramp_Wheel_Chair_Lift"),
-                        BusData.getBusInfo(busId,"Status_2_Of_Doors"), BusData.getBusInfo(busId,"Stop_Pressed"),
-                        BusData.getBusInfo(busId,"Stop_Request"), BusData.getBusInfo(busId,"Total_Vehicle_Distance"),
-                        BusData.getBusInfo(busId,"Turn_Signals"), BusData.getBusInfo(busId,"Wlan_Connectivity"));
+                        urgency, status, map.get("Accelerator_Pedal_Position"),map.get("Ambient_Temperature"),map.get("At_Stop"),
+                        map.get("Cooling_Air_Conditioning"),map.get("Driver_Cabin_Temperature"),map.get("Fms_Sw_Version_Supported"),
+                        map.get("GPS"),map.get("GPS2"),map.get("GPS_NMEA"),map.get("Journey_Info"), map.get("Mobile_Network_Cell_Info"), map.get("Mobile_Network_Signal_Strength"),
+                        map.get("Next_Stop"),map.get("Offroute"),map.get("Online_Users"), map.get("Opendoor"),
+                        map.get("Position_Of_Doors"), map.get("Pram_Request"), map.get("Ramp_Wheel_Chair_Lift"),
+                        map.get("Status_2_Of_Doors"), map.get("Stop_Pressed"), map.get("Stop_Request"),
+                        map.get("Total_Vehicle_Distance"), map.get("Turn_Signals"),map.get("Wlan_Connectivity"));
 
             } catch (Exception e) {
                 this.exception = e;

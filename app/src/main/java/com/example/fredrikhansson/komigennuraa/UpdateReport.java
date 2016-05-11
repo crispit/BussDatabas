@@ -225,7 +225,6 @@ public class UpdateReport extends AppCompatActivity {
     //Method for resetting the screen after sending an error report
     public void resetScreen(){
 
-        symptomButton.setText("Symptom");
         gradeButton.setText(grade);
         setGradeButtonColor();
 
