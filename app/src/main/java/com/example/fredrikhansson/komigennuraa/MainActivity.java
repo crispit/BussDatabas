@@ -3,6 +3,7 @@ package com.example.fredrikhansson.komigennuraa;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Method for adding reports in the database via a button
     public void addReport (View v){
+        new AlertDialog.Builder(this).setTitle("Felrapport mottagen").setMessage("Din felrapport har nu skickats in och behandlas inom kort! Tack!").setNegativeButton("OK", null).show();
+
         new RetrieveBusData().execute("Test");
         resetScreen();
     }
@@ -128,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 symptom = data.getStringExtra("symptom");
-                Button symptomButton = (Button)findViewById(R.id.button2);
+                Button symptomButton = (Button)findViewById(R.id.button3);
 
-                symptomButton.setText(symptom);
+                symptomButton.setText(symptom + " ✔");
 
                 symptomSelected = true;
                 unLockSend();
@@ -154,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
 
         symptomSelected = false;
         gradeSelected = false;
-        Button symptomButton = (Button)findViewById(R.id.button2);
-        symptomButton.setText("Symptom");
+        Button symptomButton = (Button)findViewById(R.id.button3);
+        symptomButton.setText("Klicka här ▼");
 
         Button sendButton = (Button)findViewById(R.id.button);
         sendButton.setEnabled(false);
