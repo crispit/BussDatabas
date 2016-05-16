@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button sendButton = (Button)findViewById(R.id.button);
+        Button sendButton = (Button)findViewById(R.id.sendButton);
         sendButton.setEnabled(false);
 
         b1 = (Button) findViewById(R.id.colorButton1);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 symptom = data.getStringExtra("symptom");
-                Button symptomButton = (Button)findViewById(R.id.button3);
+                Button symptomButton = (Button)findViewById(R.id.symptom);
 
                 symptomButton.setText(symptom + " ✔");
 
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     public void unLockSend(){
 
         if (gradeSelected && symptomSelected){
-            Button sendButton = (Button)findViewById(R.id.button);
+            Button sendButton = (Button)findViewById(R.id.sendButton);
             sendButton.setEnabled(true);
             sendButton.setBackgroundResource(R.drawable.buttonn);
         }
@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
 
         symptomSelected = false;
         gradeSelected = false;
-        Button symptomButton = (Button)findViewById(R.id.button3);
+        Button symptomButton = (Button)findViewById(R.id.symptom);
         symptomButton.setText("Klicka här ▼");
 
-        Button sendButton = (Button)findViewById(R.id.button);
+        Button sendButton = (Button)findViewById(R.id.sendButton);
         sendButton.setEnabled(false);
         sendButton.setBackgroundResource(R.drawable.buttonn_grey);
 

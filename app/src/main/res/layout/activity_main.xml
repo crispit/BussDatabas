@@ -12,41 +12,64 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DisplayReports"
+        android:text="Visa skickade rapporter"
         android:id="@+id/Bdisplay"
         android:onClick="displayReport"
-        android:background="#d50000"
-        android:textColor="#ffffff"
+        android:background="#9ecbf9"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:width="260dp"
+        android:height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:background="@drawable/buttonn_grey"
-        android:text="SKICKA"
-        android:width="230dp"
-        android:height="80dp"
-        android:textSize="30dp"
-        android:layout_marginBottom="50dp"
-        android:onClick="addReport"
-        android:layout_alignParentBottom="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Vad har hänt?"
+        android:textSize="24dp"
+        android:id="@+id/whatHappened"
+        android:layout_below="@+id/Bdisplay"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Klicka här ▼"
+        android:id="@+id/symptom"
+        android:width="320dp"
+        android:height="50dp"
+        android:textSize="24dp"
+        android:textColor="#000"
+        android:onClick="symptomList"
+        android:layout_below="@+id/whatHappened"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hur illa är problemet?"
+        android:textSize="24dp"
+        android:id="@+id/howBad"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/symptom"
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
-        android:id="@+id/linearButtons"
+        android:id="@+id/scaleOfColors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="100"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/button"
-        android:layout_marginBottom="60dp"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/howBad"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
 
         <Button
             android:layout_width="match_parent"
@@ -89,41 +112,20 @@
             android:onClick="selectColor" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Hur illa är problemet?"
-        android:textSize="27dp"
-        android:id="@+id/textView2"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/linearButtons"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2" />
-
     <Button
+        android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Klicka här ▼"
-        android:id="@+id/button3"
-        android:width="320dp"
-        android:height="50dp"
-        android:textSize="25dp"
-        android:textColor="#ffffff"
-        android:onClick="symptomList"
-        android:layout_below="@+id/Bdisplay"
+        android:padding="10dp"
+        android:textColor="#000"
+        android:background="@drawable/buttonn_grey"
+        android:text="SKICKA"
+        android:width="230dp"
+        android:height="80dp"
+        android:textSize="30dp"
+        android:onClick="addReport"
+        android:layout_below="@id/scaleOfColors"
         android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Vad har hänt?"
-        android:textSize="27dp"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/Bdisplay"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -132,8 +134,11 @@
         android:background="@drawable/round_button"
         android:gravity="center_vertical|center_horizontal"
         android:text="1"
+        android:textSize="26dp"
         android:textColor="#000"
+        android:id="@+id/firstStep"
         android:layout_below="@+id/Bdisplay"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -143,9 +148,11 @@
         android:background="@drawable/round_button"
         android:gravity="center_vertical|center_horizontal"
         android:text="2"
+        android:textSize="26dp"
         android:textColor="#000"
-        android:id="@+id/button2"
-        android:layout_above="@+id/linearButtons"
+        android:id="@+id/secondStep"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/symptom"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -155,9 +162,11 @@
         android:background="@drawable/round_button"
         android:gravity="center_vertical|center_horizontal"
         android:text="3"
+        android:textSize="26dp"
         android:textColor="#000"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/button"
+        android:id="@+id/thirdStep"
+        android:layout_below="@id/scaleOfColors"
+        android:layout_marginTop="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
