@@ -1,5 +1,6 @@
 package com.example.fredrikhansson.komigennuraa;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -77,10 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
     //Method for adding reports in the database via a button
     public void addReport (View v){
-        new AlertDialog.Builder(this).setTitle("Felrapport mottagen").setMessage("Din felrapport har nu skickats in och behandlas inom kort! Tack!").setNegativeButton("OK", null).show();
 
         new RetrieveBusData().execute("Test");
         resetScreen();
+
+        new AlertDialog.Builder(this)
+                .setTitle("Klart!")
+                .setMessage("Din felrapport har nu skickats in och behandlas inom kort! Tack!")
+                .setNegativeButton("OK", null)
+                .show();
     }
 
     //Method that is called when selecting any of the color buttons
@@ -197,10 +203,6 @@ public class MainActivity extends AppCompatActivity {
             return "Insertion successful!";
         }
 
-        protected void onPostExecute() {
-            // TODO: check this.exception
-            // TODO: do something with the feed
-        }
     }
 
 }
