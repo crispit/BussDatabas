@@ -81,7 +81,7 @@ public class BusData {
         if (response.toString().equals("")){
             throw new EmptyReturnValueException();
         }
-        return "Felix"; // response.toString();
+        return response.toString();
 
     }
 

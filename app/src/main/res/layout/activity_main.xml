@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Vad har hänt?"
+        android:text="Vilken felkategori?"
         android:textSize="24dp"
         android:id="@+id/whatHappened"
         android:layout_below="@+id/Bdisplay"
