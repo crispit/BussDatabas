@@ -306,4 +306,67 @@ public class DBHelper extends SQLiteOpenHelper{
         return Integer.toString(nextId+1);
     }
 
+
+    //Method for inserting a preliminary error report
+    public boolean insertPreliminaryReport(String errorID, String symptom, String comment, String busID, String date, int grade, String status){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ErrorID", errorID);
+        contentValues.put("Symptom", symptom);
+        contentValues.put("Comment", comment);
+        contentValues.put("BusID", busID);
+        contentValues.put("Date", date);
+        contentValues.put("Grade", grade);
+        contentValues.put("Status", status);
+
+
+        db.insert("ErrorReport", null, contentValues);
+        return true;
+
+    }
+
+    //Method for updating a preliminary report
+    public boolean updatePreliminaryReport(String errorID, String accelerator_Pedal_Position, String ambient_Temperature, String at_Stop, String cooling_Air_Conditioning,
+                                           String driver_Cabin_Temperature, String fms_Sw_Version_Supported, String gps, String gps2,
+                                           String gps_nmea, String journey_Info, String mobile_Network_Cell_Info, String mobile_Network_Signal_Strength,
+                                           String next_Stop, String offroute, String online_Users, String opendoor, String position_Of_Doors,
+                                           String pram_Request, String ramp_Wheel_Chair_Lift, String status_2_Of_Doors, String stop_Pressed, String stop_Request,
+                                           String total_Vehicle_Distance, String turn_Signals, String wlan_Connectivity){
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("ErrorID", errorID);
+        contentValues.put("Accelerator_Pedal_Position", accelerator_Pedal_Position);
+        contentValues.put("Ambient_Temperature", ambient_Temperature);
+        contentValues.put("At_Stop", at_Stop);
+        contentValues.put("Cooling_Air_Conditioning", cooling_Air_Conditioning);
+        contentValues.put("Driver_Cabin_Temperature", driver_Cabin_Temperature);
+        contentValues.put("Fms_Sw_Version_Supported", fms_Sw_Version_Supported);
+        contentValues.put("GPS", gps);
+        contentValues.put("GPS2", gps2);
+        contentValues.put("GPS_NMEA", gps_nmea);
+        contentValues.put("Journey_Info", journey_Info);
+        contentValues.put("Mobile_Network_Cell_Info", mobile_Network_Cell_Info);
+        contentValues.put("Mobile_Network_Signal_Strength", mobile_Network_Signal_Strength);
+        contentValues.put("Next_Stop", next_Stop);
+        contentValues.put("Offroute", offroute);
+        contentValues.put("Online_Users", online_Users);
+        contentValues.put("Opendoor", opendoor);
+        contentValues.put("Position_Of_Doors", position_Of_Doors);
+        contentValues.put("Pram_Request", pram_Request);
+        contentValues.put("Ramp_Wheel_Chair_Lift", ramp_Wheel_Chair_Lift);
+        contentValues.put("Status_2_Of_Doors", status_2_Of_Doors);
+        contentValues.put("Stop_Pressed", stop_Pressed);
+        contentValues.put("Stop_Request", stop_Request);
+        contentValues.put("Total_Vehicle_Distance", total_Vehicle_Distance);
+        contentValues.put("Turn_Signals", turn_Signals);
+        contentValues.put("Wlan_Connectivity", wlan_Connectivity);
+
+        db.update("ErrorReport", contentValues, "errorId = ? ", new String[]{errorID});
+        return true;
+    }
+
 }

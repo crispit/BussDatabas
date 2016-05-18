@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
@@ -80,13 +81,11 @@ public class MainActivity extends AppCompatActivity {
     public void addReport (View v){
 
         new RetrieveBusData().execute("Test");
-        resetScreen();
 
-        new AlertDialog.Builder(this)
-                .setTitle("Klart!")
-                .setMessage("Din felrapport har nu skickats in och behandlas inom kort! Tack!")
-                .setNegativeButton("OK", null)
-                .show();
+        new AlertDialog.Builder(this).setTitle("Felrapport mottagen").setMessage
+                ("Din felrapport har nu skickats in och behandlas inom kort! Tack!").setNegativeButton("OK", null).show();
+
+        resetScreen();
     }
 
     //Method that is called when selecting any of the color buttons
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         unLockSend();
     }
 
-    //Metod for opening a list of symptoms
+    //Method for opening a list of symptoms
     public void symptomList(View V){
         Intent i = new Intent(this, SymptomList.class);
         startActivityForResult(i, 1);
@@ -185,10 +184,16 @@ public class MainActivity extends AppCompatActivity {
 
         protected String doInBackground(String... str) {
             try {
+                String errorId = mydb.getNewErrorId();
+                //Insert preliminry
+                mydb.insertPreliminaryReport(errorId, symptom, "Kommentar saknas...", busId,
+                        calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)
+                                +", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),urgency, status);
+
+
                 HashMap<String,String> map = BusData.getAllBusInfo(busId);
-                mydb.insertErrorReport(mydb.getNewErrorId(), symptom, "Kommentar saknas...", busId,
-                        calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)+", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),
-                        urgency, status, map.get("Accelerator_Pedal_Position"),map.get("Ambient_Temperature"),map.get("At_Stop"),
+
+                mydb.updatePreliminaryReport(errorId,map.get("Accelerator_Pedal_Position"),map.get("Ambient_Temperature"),map.get("At_Stop"),
                         map.get("Cooling_Air_Conditioning"),map.get("Driver_Cabin_Temperature"),map.get("Fms_Sw_Version_Supported"),
                         map.get("GPS"),map.get("GPS2"),map.get("GPS_NMEA"),map.get("Journey_Info"), map.get("Mobile_Network_Cell_Info"), map.get("Mobile_Network_Signal_Strength"),
                         map.get("Next_Stop"),map.get("Offroute"),map.get("Online_Users"), map.get("Opendoor"),
@@ -200,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 this.exception = e;
                 return "Could not insert!";
             }
+
+
             return "Insertion successful!";
         }
 
