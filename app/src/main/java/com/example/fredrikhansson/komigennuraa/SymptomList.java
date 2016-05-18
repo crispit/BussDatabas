@@ -26,18 +26,12 @@ public class SymptomList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.symptomlist);
 
-
-
-
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.symptomList);
         symptomList=new ArrayList<String>();
-        symptomList.add("Dörr fastnade");
-        symptomList.add("Motor exploderade");
-        symptomList.add("Buss dog");
-
-
-
+        for(int i=0; i<Symptoms.getsymptoms().length; i++){
+            symptomList.add(Symptoms.getsymptoms()[i]);
+        }
 
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,symptomList);
         listView.setAdapter(adapter);
