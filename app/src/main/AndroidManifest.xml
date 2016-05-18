@@ -16,14 +16,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".TestList"
-            android:label="testlist">
+            android:label="Skickade felrapporter">
         </activity>
         <activity android:name=".SymptomList"
-            android:label="symptomList">
+            android:label="Val av symptom">
 
         </activity>
         <activity android:name=".UpdateReport"
-            android:label="updateReport">
+            android:label="Komplettera eller radera felrapport">
 
         </activity>
     </application>
