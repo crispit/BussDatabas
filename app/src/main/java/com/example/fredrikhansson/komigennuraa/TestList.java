@@ -46,7 +46,7 @@ public class TestList extends AppCompatActivity {
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.busList);
-        //list=new ArrayList<>();
+
         list = mydb.getBusReports(busId); // Adds all reports in the list
 
         setAdapterToListview();
@@ -70,8 +70,6 @@ public class TestList extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 2) {
-
-            System.out.print("bajs");
 
             list = mydb.getBusReports(busId); // Adds all reports in the list
             setAdapterToListview();

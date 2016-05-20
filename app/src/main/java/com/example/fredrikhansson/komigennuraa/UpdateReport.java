@@ -128,7 +128,7 @@ public class UpdateReport extends AppCompatActivity {
     //Method for updating reports and changing status to completed in the database via a button
     public void updateReport (View v){
         String comment = commentField.getText().toString();
-        mydb.updateErrorReport(errorId, grade, symptom, comment, "completed");
+        mydb.updateErrorReport(errorId, grade, symptom, comment, "Kommenterad");
         Intent i = new Intent();
         i.putExtra("action", "refresh");
         setResult(RESULT_OK, i);

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         busId = "100021";//Vin_Num_001
-        status = "uncompleted";
+        status = "Okommenterad";
 
         //Setting the context for the database to the shared database
         Context sharedContext = null;
