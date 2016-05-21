@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 
 public class UpdateReport extends AppCompatActivity {
@@ -33,7 +32,7 @@ public class UpdateReport extends AppCompatActivity {
     Button b3;
     Button b4;
 
-    DBHelper mydb;
+    DbHelper mydb;
     String errorId;
     String symptom;
     String grade;
@@ -75,27 +74,15 @@ public class UpdateReport extends AppCompatActivity {
         //fetching the id for the error report
         errorId = getIntent().getStringExtra("errorId");
 
-        //Setting the context for the database to the shared database
-        Context sharedContext = null;
-        try {
-            sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
-            if (sharedContext == null) {
-                return;
-            }
-        } catch (Exception e) {
-            String error = e.getMessage();
-            return;
-        }
-
-        mydb = new DBHelper(sharedContext);
+        mydb = new DbHelper(this);
 
         cur = mydb.getData(errorId);
         cur.moveToFirst();
 
         updateButton.setEnabled(false);
 
-        grade = cur.getString(cur.getColumnIndex("Grade"));
-        symptom = cur.getString(cur.getColumnIndex("Symptom"));
+        grade = cur.getString(cur.getColumnIndex(DbHelper.COLUMN_NAME_GRADE));
+        symptom = cur.getString(cur.getColumnIndex(DbHelper.COLUMN_NAME_SYMPTOM));
         setGradeButtonColor();
         symptomButton.setText(symptom);
 
@@ -137,14 +124,14 @@ public class UpdateReport extends AppCompatActivity {
 
     //Method for deleting reports in the database via a button
     public void deleteReport (View v){
-        mydb.deletErrorReport(errorId);
+        mydb.deleteErrorReport(errorId);
         Intent i = new Intent();
-        i.putExtra("action", "refresh");
+        i.putExtra("action", "delete");
         setResult(RESULT_OK, i);
         finish();
     }//deleteReport
 
-    //Metod for opening a list of symptoms
+    //Method for opening a list of symptoms
     public void symptomList(View V){
         Intent i = new Intent(this, SymptomList.class);
         startActivityForResult(i, 1);

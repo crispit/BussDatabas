@@ -1,7 +1,5 @@
 package com.example.fredrikhansson.komigennuraa;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +10,6 @@ import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
@@ -22,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button b3;
     Button b4;
 
-    DBHelper mydb;
+    DbHelper mydb;
     String busId;
     String symptom;
     String status;
@@ -44,25 +41,12 @@ public class MainActivity extends AppCompatActivity {
         b3 = (Button) findViewById(R.id.colorButton3);
         b4 = (Button) findViewById(R.id.colorButton4);
 
+        mydb = new DbHelper(this);
 
         calendar = Calendar.getInstance();
 
-        busId = "100021";//Vin_Num_001
+        busId = "Vin_Num_001";// 100021
         status = "Okommenterad";
-
-        //Setting the context for the database to the shared database
-        Context sharedContext = null;
-        try {
-            sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
-            if (sharedContext == null) {
-                return;
-            }
-        } catch (Exception e) {
-            String error = e.getMessage();
-            return;
-        }
-
-        mydb = new DBHelper(sharedContext);
 
 
     }

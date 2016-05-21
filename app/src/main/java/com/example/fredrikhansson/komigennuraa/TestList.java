@@ -5,21 +5,19 @@ package com.example.fredrikhansson.komigennuraa;
  */
 
 
-import android.content.Context;
 import android.content.Intent;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.ListView;
+import android.widget.ListView;
 
         import java.util.ArrayList;
 
 public class TestList extends AppCompatActivity {
 
     ListView listView ;
-    DBHelper mydb;
+    DbHelper mydb;
     private ArrayList<ErrorReport> list;
     String busId;
 
@@ -28,19 +26,7 @@ public class TestList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testlist);
 
-        //Setting the context for the database to the shared database
-        Context sharedContext = null;
-        try {
-            sharedContext = this.createPackageContext("crispit.errorextractor", Context.CONTEXT_INCLUDE_CODE);
-            if (sharedContext == null) {
-                return;
-            }
-        } catch (Exception e) {
-            String error = e.getMessage();
-            return;
-        }
-
-        mydb = new DBHelper(sharedContext);
+        mydb = new DbHelper(this);
 
         busId = getIntent().getStringExtra("busId");
 
