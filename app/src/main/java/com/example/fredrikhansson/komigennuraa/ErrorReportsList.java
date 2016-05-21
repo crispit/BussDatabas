@@ -14,7 +14,7 @@ import android.widget.ListView;
 
         import java.util.ArrayList;
 
-public class TestList extends AppCompatActivity {
+public class ErrorReportsList extends AppCompatActivity {
 
     ListView listView ;
     DbHelper mydb;
@@ -64,7 +64,7 @@ public class TestList extends AppCompatActivity {
 
     //Method for adding the adapter to the listview.
     public void setAdapterToListview() {
-        ListRowAdapter objAdapter = new ListRowAdapter(TestList.this,
+        ListRowAdapter objAdapter = new ListRowAdapter(ErrorReportsList.this,
                 R.layout.row, list);
         listView.setAdapter(objAdapter);
     }//setAdapterToListview

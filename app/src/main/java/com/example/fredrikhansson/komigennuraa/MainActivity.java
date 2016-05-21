@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Method for showing all error reports in the database via a button
     public void displayReport (View V){
-        Intent i = new Intent(this, TestList.class);
+        Intent i = new Intent(this, ErrorReportsList.class);
         Bundle bundle = new Bundle();
         bundle.putString("busId",busId);
         i.putExtras(bundle);
