@@ -172,7 +172,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ArrayList<ErrorReport> array_list = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_NAME+" where "+COLUMN_NAME_BUSID+" = ?", new String[]{busID});
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME+" where "+COLUMN_NAME_BUSID+" = ? and not "+COLUMN_NAME_STATUS+" = ?", new String[]{busID,"Löst"});
         res.moveToFirst();
 
         while (res.isAfterLast() == false) {
