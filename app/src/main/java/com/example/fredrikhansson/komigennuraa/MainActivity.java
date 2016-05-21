@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 import java.util.Calendar;
 import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
     int urgency;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         mydb = new DbHelper(this);
 
-        calendar = Calendar.getInstance();
+
 
         busId = "Vin_Num_001";// 100021
         status = "Okommenterad";
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Method for adding reports in the database via a button
     public void addReport (View v){
-
+        calendar = Calendar.getInstance();
         new RetrieveBusData().execute("Test");
 
         new AlertDialog.Builder(this).setTitle("Felrapport mottagen").setMessage
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String errorId = mydb.getNewErrorId();
                 //Insert preliminry
+
                 mydb.insertPreliminaryReport(errorId, symptom, "Kommentar saknas...", busId,
                         calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)
                                 +", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),urgency, status);
