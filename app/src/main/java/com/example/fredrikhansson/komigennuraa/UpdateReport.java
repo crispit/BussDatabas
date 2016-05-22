@@ -169,6 +169,9 @@ public class UpdateReport extends AppCompatActivity {
     //Method for opening a list of symptoms
     public void symptomList(View V){
         Intent i = new Intent(this, SymptomList.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("symptom",symptom);
+        i.putExtras(bundle);
         startActivityForResult(i, 1);
     }//symptomList
 
@@ -240,8 +243,13 @@ public class UpdateReport extends AppCompatActivity {
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+
+                if (!symptom.equals(data.getStringExtra("symptom"))){
+                    unLockSend();
+                }
                 symptom = data.getStringExtra("symptom");
                 symptomButton.setText(symptom);
+
             }
         }
     }//onActivityResult

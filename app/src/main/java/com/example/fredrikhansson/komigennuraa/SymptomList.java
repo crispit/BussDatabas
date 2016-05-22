@@ -18,7 +18,9 @@ public class SymptomList extends AppCompatActivity {
 
 
     private ListView listView ;
+    private String selectedSymptom;
     int clickPosition;
+    //private SymptomListRowAdapter adapter;
     private ArrayAdapter adapter;
     private ArrayList<String> symptomList;
 
@@ -31,9 +33,9 @@ public class SymptomList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.symptomList);
         symptomList=new ArrayList<>();
         symptomList.addAll(Arrays.asList(Symptoms.getsymptoms()));
-
-
-        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,symptomList);
+        selectedSymptom = getIntent().getStringExtra("symptom");
+        adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, symptomList);
+        //adapter=new SymptomListRowAdapter(this, symptomList, selectedSymptom);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
