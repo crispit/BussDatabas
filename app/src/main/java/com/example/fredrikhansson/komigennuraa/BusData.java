@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class BusData {
+class BusData {
 
-    public static String[] getSensors(){
+    private static String[] getSensors(){
         String[] sensors = new String[25];
 
         sensors[0]="Accelerator_Pedal_Position";
@@ -47,7 +47,7 @@ public class BusData {
 
 
 
-    public static String getBusInfo(String dgwNr, String infoTxt) throws IOException, EmptyReturnValueException {
+    private static String getBusInfo(String dgwNr, String infoTxt) throws IOException, EmptyReturnValueException {
         String dgw = "Ericsson$" + dgwNr;
 
         long t2 = System.currentTimeMillis();

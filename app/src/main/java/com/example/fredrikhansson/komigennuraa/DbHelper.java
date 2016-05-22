@@ -11,44 +11,44 @@ package com.example.fredrikhansson.komigennuraa;
 /**
  * Created by fredrikhansson on 4/18/16.
  */
-public class DbHelper extends SQLiteOpenHelper{
+class DbHelper extends SQLiteOpenHelper{
 
     //Unchangeable strings which is used when the database is created
-    public static final String TABLE_NAME = "ErrorReport";
-    public static final String COLUMN_NAME_ENTRYID = "FelrapportsID";
+    private static final String TABLE_NAME = "ErrorReport";
+    private static final String COLUMN_NAME_ENTRYID = "FelrapportsID";
     public static final String COLUMN_NAME_SYMPTOM = "Felkategori";
-    public static final String COLUMN_NAME_BUSID = "BussID";
-    public static final String COLUMN_NAME_DATE = "Datum";
-    public static final String COLUMN_NAME_COMMENT = "Kommentar";
+    private static final String COLUMN_NAME_BUSID = "BussID";
+    private static final String COLUMN_NAME_DATE = "Datum";
+    private static final String COLUMN_NAME_COMMENT = "Kommentar";
     public static final String COLUMN_NAME_GRADE = "Gradering";
-    public static final String COLUMN_NAME_STATUS = "Status";
+    private static final String COLUMN_NAME_STATUS = "Status";
 
     //Busspecific data
-    public static final String COLUMN_NAME_Accelerator_Pedal_Position = "Accelerator_Pedal_Position";
-    public static final String COLUMN_NAME_Ambient_Temperature = "Ambient_Temperature";
-    public static final String COLUMN_NAME_At_Stop = "At_Stop";
-    public static final String COLUMN_NAME_Cooling_Air_Conditioning = "Cooling_Air_Conditioning";
-    public static final String COLUMN_NAME_Driver_Cabin_Temperature = "Driver_Cabin_Temperature";
-    public static final String COLUMN_NAME_Fms_Sw_Version_Supported = "Fms_Sw_Version_Supported";
-    public static final String COLUMN_NAME_GPS = "GPS";
-    public static final String COLUMN_NAME_GPS2 = "GPS2";
-    public static final String COLUMN_NAME_GPS_NMEA = "GPS_NMEA";
-    public static final String COLUMN_NAME_Journey_Info = "Journey_Info";
-    public static final String COLUMN_NAME_Mobile_Network_Cell_Info = "Mobile_Network_Cell_Info";
-    public static final String COLUMN_NAME_Mobile_Network_Signal_Strength = "Mobile_Network_Signal_Strength";
-    public static final String COLUMN_NAME_Next_Stop = "Next_Stop";
-    public static final String COLUMN_NAME_Offroute = "Offroute";
-    public static final String COLUMN_NAME_Online_Users = "Online_Users";
-    public static final String COLUMN_NAME_Opendoor = "Opendoor";
-    public static final String COLUMN_NAME_Position_Of_Doors = "Position_Of_Doors";
-    public static final String COLUMN_NAME_Pram_Request = "Pram_Request";
-    public static final String COLUMN_NAME_Ramp_Wheel_Chair_Lift = "Ramp_Wheel_Chair_Lift";
-    public static final String COLUMN_NAME_Status_2_Of_Doors = "Status_2_Of_Doors";
-    public static final String COLUMN_NAME_Stop_Pressed = "Stop_Pressed";
-    public static final String COLUMN_NAME_Stop_Request = "Stop_Request";
-    public static final String COLUMN_NAME_Total_Vehicle_Distance = "Total_Vehicle_Distance";
-    public static final String COLUMN_NAME_Turn_Signals = "Turn_Signals";
-    public static final String COLUMN_NAME_Wlan_Connectivity = "Wlan_Connectivity";
+    private static final String COLUMN_NAME_Accelerator_Pedal_Position = "Accelerator_Pedal_Position";
+    private static final String COLUMN_NAME_Ambient_Temperature = "Ambient_Temperature";
+    private static final String COLUMN_NAME_At_Stop = "At_Stop";
+    private static final String COLUMN_NAME_Cooling_Air_Conditioning = "Cooling_Air_Conditioning";
+    private static final String COLUMN_NAME_Driver_Cabin_Temperature = "Driver_Cabin_Temperature";
+    private static final String COLUMN_NAME_Fms_Sw_Version_Supported = "Fms_Sw_Version_Supported";
+    private static final String COLUMN_NAME_GPS = "GPS";
+    private static final String COLUMN_NAME_GPS2 = "GPS2";
+    private static final String COLUMN_NAME_GPS_NMEA = "GPS_NMEA";
+    private static final String COLUMN_NAME_Journey_Info = "Journey_Info";
+    private static final String COLUMN_NAME_Mobile_Network_Cell_Info = "Mobile_Network_Cell_Info";
+    private static final String COLUMN_NAME_Mobile_Network_Signal_Strength = "Mobile_Network_Signal_Strength";
+    private static final String COLUMN_NAME_Next_Stop = "Next_Stop";
+    private static final String COLUMN_NAME_Offroute = "Offroute";
+    private static final String COLUMN_NAME_Online_Users = "Online_Users";
+    private static final String COLUMN_NAME_Opendoor = "Opendoor";
+    private static final String COLUMN_NAME_Position_Of_Doors = "Position_Of_Doors";
+    private static final String COLUMN_NAME_Pram_Request = "Pram_Request";
+    private static final String COLUMN_NAME_Ramp_Wheel_Chair_Lift = "Ramp_Wheel_Chair_Lift";
+    private static final String COLUMN_NAME_Status_2_Of_Doors = "Status_2_Of_Doors";
+    private static final String COLUMN_NAME_Stop_Pressed = "Stop_Pressed";
+    private static final String COLUMN_NAME_Stop_Request = "Stop_Request";
+    private static final String COLUMN_NAME_Total_Vehicle_Distance = "Total_Vehicle_Distance";
+    private static final String COLUMN_NAME_Turn_Signals = "Turn_Signals";
+    private static final String COLUMN_NAME_Wlan_Connectivity = "Wlan_Connectivity";
 
     //Helpstrings for queries
     private static final String TEXT_TYPE = " TEXT ";
@@ -94,8 +94,8 @@ public class DbHelper extends SQLiteOpenHelper{
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     //Strings with database info
-    public static final int DATABASE_VERSION = 4;
-    public static final String DATABASE_NAME = "Database.db";
+    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "Database.db";
 
     //constructor
     public DbHelper(Context context){
@@ -187,6 +187,7 @@ public class DbHelper extends SQLiteOpenHelper{
             array_list.add(er);
             res.moveToNext();
         }
+        res.close();
         return array_list;
     }
 
@@ -204,7 +205,7 @@ public class DbHelper extends SQLiteOpenHelper{
                 nextId=currentId;
             res.moveToNext();
         }
-
+        res.close();
         return Integer.toString(nextId+1);
     }
 
@@ -216,7 +217,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_ENTRYID, errorID);
         contentValues.put(COLUMN_NAME_SYMPTOM, symptom);
-        contentValues.put(COLUMN_NAME_COMMENT, comment);
+        contentValues.put(COLUMN_NAME_COMMENT, "Kommentar saknas...");
         contentValues.put(COLUMN_NAME_BUSID, busID);
         contentValues.put(COLUMN_NAME_DATE, date);
         contentValues.put(COLUMN_NAME_GRADE, grade);

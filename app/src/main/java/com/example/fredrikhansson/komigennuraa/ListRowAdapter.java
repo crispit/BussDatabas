@@ -7,6 +7,7 @@ package com.example.fredrikhansson.komigennuraa;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ListRowAdapter extends ArrayAdapter<ErrorReport> {
+class ListRowAdapter extends ArrayAdapter<ErrorReport> {
 
-    private Activity activity;
-    private List<ErrorReport> errorReports;
+    private final Activity activity;
+    private final List<ErrorReport> errorReports;
     private ErrorReport er;
-    private int row;
+    private final int row;
 
-    public ListRowAdapter(Activity act, int resource, List<ErrorReport> arrayList) {
-        super(act, resource, arrayList);
+    public ListRowAdapter(Activity act, List<ErrorReport> arrayList) {
+        super(act, R.layout.row, arrayList);
         this.activity = act;
-        this.row = resource;
+        this.row = R.layout.row;
         this.errorReports = arrayList;
 
     }
@@ -62,7 +63,7 @@ public class ListRowAdapter extends ArrayAdapter<ErrorReport> {
         if (holder.errorGrade != null //&& null != er.getGrade()
                 //&& er.getGrade().trim().length() > 0
                 ) {
-            holder.errorGrade.setText("Grade:" + Html.fromHtml(Integer.toString(er.getGrade())));
+            holder.errorGrade.setText(TextUtils.concat(activity.getString(R.string.Grade2), " ", Integer.toString(er.getGrade())));
         }
         if (holder.errorComment != null && null != er.getComment()
                 && er.getComment().trim().length() > 0) {

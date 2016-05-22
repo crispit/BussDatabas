@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Felrapportering</string>
     <string name="hej">Hej</string>
+    <string name="AddComment">Fyll i din kommentar till felrapporten.</string>
+    <string name="Delete">RADERA</string>
+    <string name="Update">UPPDATERA</string>
+    <string name="Grade">Gradering av problem</string>
+    <string name="Grade2">Gradering av problem:</string>
+    <string name="Check"> ✔</string>
 </resources>

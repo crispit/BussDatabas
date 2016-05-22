@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,21 +15,21 @@ import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
-    int urgency;
+    private int urgency;
 
-    Button b1;
-    Button b2;
-    Button b3;
-    Button b4;
+    private Button b1;
+    private Button b2;
+    private Button b3;
+    private Button b4;
 
-    DbHelper mydb;
-    String busId;
-    String symptom;
-    String status;
-    boolean symptomSelected = false;
-    boolean gradeSelected = false;
+    private DbHelper mydb;
+    private String busId;
+    private String symptom;
+    private String status;
+    private boolean symptomSelected = false;
+    private boolean gradeSelected = false;
 
-    Calendar calendar;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 symptom = data.getStringExtra("symptom");
                 Button symptomButton = (Button)findViewById(R.id.symptom);
 
-                symptomButton.setText(symptom + " ✔");
+                symptomButton.setText(TextUtils.concat(symptom, this.getString(R.string.Check)));
 
                 symptomSelected = true;
                 unLockSend();
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Method for unlocking the send button once a symptom and grade has been selected
-    public void unLockSend(){
+    private void unLockSend(){
 
         if (gradeSelected && symptomSelected){
             Button sendButton = (Button)findViewById(R.id.sendButton);
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Method for resetting the screen after sending an error report
-    public void resetScreen(){
+    private void resetScreen(){
 
         symptomSelected = false;
         gradeSelected = false;

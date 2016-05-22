@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Symptoms {
+class Symptoms {
 
     public static String[] getsymptoms(){
         String[] symptoms = new String[46];

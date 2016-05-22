@@ -4,7 +4,7 @@ package com.example.fredrikhansson.komigennuraa;
  * A class that have all information of an error report
  */
 
-public class ErrorReport {
+class ErrorReport {
     private String id;
     private String symptom;
     private String comment;

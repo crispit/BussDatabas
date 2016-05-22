@@ -4,6 +4,7 @@
     android:id="@+id/gradeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    style="?android:attr/buttonBarStyle"
     android:orientation="horizontal"
     android:weightSum="100"
     android:layout_above="@+id/button2"
@@ -12,6 +13,7 @@
     android:layout_marginBottom="44dp">
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/cButton1"
@@ -22,6 +24,7 @@
             android:onClick="gradeSelected" />
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/cButton2"
@@ -32,6 +35,7 @@
             android:onClick="gradeSelected" />
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/cButton3"
@@ -42,6 +46,7 @@
             android:onClick="gradeSelected" />
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/cButton4"

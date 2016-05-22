@@ -22,26 +22,26 @@ import android.widget.PopupWindow;
 
 public class UpdateReport extends AppCompatActivity {
 
-    Button gradeButton;
-    Button updateButton;
-    Button deleteButton;
-    Button symptomButton;
-    EditText commentField;
-    PopupWindow popupMessage;
+    private Button gradeButton;
+    private Button updateButton;
+    private Button deleteButton;
+    private Button symptomButton;
+    private EditText commentField;
+    private PopupWindow popupMessage;
 
-    Button b1;
-    Button b2;
-    Button b3;
-    Button b4;
+    private Button b1;
+    private Button b2;
+    private Button b3;
+    private Button b4;
 
-    DbHelper mydb;
-    String errorId;
-    String symptom;
-    String grade;
+    private DbHelper mydb;
+    private String errorId;
+    private String symptom;
+    private String grade;
 
-    boolean commentSelected = false;
+    private boolean commentSelected = false;
 
-    Cursor cur;
+    private Cursor cur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class UpdateReport extends AppCompatActivity {
     }//onCreate
 
     //Method for setting number and color on the grade buttons.
-    public void setGradeButtonColor(){
+    private void setGradeButtonColor(){
 
         switch (grade) {
             case "1":
@@ -235,7 +235,7 @@ public class UpdateReport extends AppCompatActivity {
     }//onActivityResult
 
     //Method for unlocking the send button once a comment has been selected
-    public void unLockSend(){
+    private void unLockSend(){
 
         if (commentSelected){
             updateButton.setEnabled(true);
@@ -245,7 +245,7 @@ public class UpdateReport extends AppCompatActivity {
     }//unLockSend
 
     //Method for resetting the screen after sending an error report
-    public void resetScreen(){
+    private void resetScreen(){
 
         gradeButton.setText(grade);
         setGradeButtonColor();

@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class SymptomList extends AppCompatActivity {
 
 
-    ListView listView ;
+    private ListView listView ;
     int clickPosition;
-    ArrayAdapter adapter;
+    private ArrayAdapter adapter;
     private ArrayList<String> symptomList;
 
     @Override

@@ -23,10 +23,10 @@ import java.util.Locale;
 
 public class ErrorReportsList extends AppCompatActivity {
 
-    ListView listView ;
-    DbHelper mydb;
+    private ListView listView ;
+    private DbHelper mydb;
     private ArrayList<ErrorReport> list;
-    String busId;
+    private String busId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +87,9 @@ public class ErrorReportsList extends AppCompatActivity {
     }//onActivityResult
 
     //Method for adding the adapter to the listview.
-    public void setAdapterToListview() {
+    private void setAdapterToListview() {
         ListRowAdapter objAdapter = new ListRowAdapter(ErrorReportsList.this,
-                R.layout.row, list);
+                list);
         listView.setAdapter(objAdapter);
     }//setAdapterToListview
 

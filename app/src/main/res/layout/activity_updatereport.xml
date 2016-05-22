@@ -17,7 +17,7 @@
         android:id="@+id/symptombutton"
         android:width="260dp"
         android:height="80dp"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textColor="#ffffff"
         android:onClick="symptomList"
         android:layout_centerVertical="true"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Gradering av problem"
+        android:text="@string/Grade"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -40,7 +40,7 @@
         android:scaleType="centerCrop"
         android:background="@drawable/custom_button4"
         android:onClick="setGrade"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
@@ -61,32 +61,26 @@
             android:padding="10dp"
             android:textColor="#ffffff"
             android:background="@drawable/buttonn_grey"
-            android:text="UPPDATERA"
+            android:text="@string/Update"
             android:width="260dp"
             android:height="80dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:onClick="updateReport"
-            android:layout_alignTop="@+id/deletebutton"
-            android:layout_toStartOf="@+id/gradebutton"
-            android:layout_toLeftOf="@+id/gradebutton" />
+             />
 
         <Button
             android:id="@+id/deletebutton"
-            android:layout_width="142dp"
+            android:layout_width="196dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textColor="#ffffff"
             android:background="@drawable/buttonn_grey"
-            android:text="RADERA"
+            android:text="@string/Delete"
             android:width="260dp"
             android:height="80dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:onClick="deleteReport"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/gradebutton"
-            android:layout_toEndOf="@+id/gradebutton" />
+             />
 
     </LinearLayout>
 
@@ -94,8 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:hint="Fyll i din kommentar till felrapporten."
-        android:layout_below="@+id/button2"
+        android:hint= "@string/AddComment"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/linearButtons" />
 
