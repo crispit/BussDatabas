@@ -1,10 +1,12 @@
 package com.example.fredrikhansson.komigennuraa;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -130,11 +132,38 @@ public class UpdateReport extends AppCompatActivity {
 
     //Method for deleting reports in the database via a button
     public void deleteReport (View v){
-        mydb.deleteErrorReport(errorId);
-        Intent i = new Intent();
-        i.putExtra("action", "delete");
-        setResult(RESULT_OK, i);
-        finish();
+
+
+
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        mydb.deleteErrorReport(errorId);
+                        Intent i = new Intent();
+                        i.putExtra("action", "delete");
+                        setResult(RESULT_OK, i);
+                        finish();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        //finish();
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Vill du verkligen radera den här felrapporten?").setNegativeButton("Nej", dialogClickListener)
+                .setPositiveButton("Ja", dialogClickListener).show();
+
+
+
+
+
     }//deleteReport
 
     //Method for opening a list of symptoms
