@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by fredrikhansson on 01/05/16.
@@ -28,12 +29,11 @@ public class SymptomList extends AppCompatActivity {
 
         //creates a list och view showing the buses
         listView = (ListView) findViewById(R.id.symptomList);
-        symptomList=new ArrayList<String>();
-        for(int i=0; i<Symptoms.getsymptoms().length; i++){
-            symptomList.add(Symptoms.getsymptoms()[i]);
-        }
+        symptomList=new ArrayList<>();
+        symptomList.addAll(Arrays.asList(Symptoms.getsymptoms()));
 
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,symptomList);
+
+        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,symptomList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

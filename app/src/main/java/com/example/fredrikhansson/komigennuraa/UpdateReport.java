@@ -39,7 +39,6 @@ public class UpdateReport extends AppCompatActivity {
     private String symptom;
     private String grade;
 
-    private boolean commentSelected = false;
 
     private Cursor cur;
 
@@ -67,7 +66,7 @@ public class UpdateReport extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                commentSelected=true;
+
                 unLockSend();
 
             }
@@ -92,6 +91,7 @@ public class UpdateReport extends AppCompatActivity {
 
     //Method for setting number and color on the grade buttons.
     private void setGradeButtonColor(){
+
 
         switch (grade) {
             case "1":
@@ -199,21 +199,33 @@ public class UpdateReport extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.cButton1:
+                if (!grade.equals("1")){
+                    unLockSend();
+                }
                 grade = "1";
                 popupMessage.dismiss();
                 resetScreen();
                 break;
             case R.id.cButton2:
+                if (!grade.equals("2")){
+                    unLockSend();
+                }
                 grade = "2";
                 popupMessage.dismiss();
                 resetScreen();
                 break;
             case R.id.cButton3:
+                if (!grade.equals("3")){
+                    unLockSend();
+                }
                 grade = "3";
                 popupMessage.dismiss();
                 resetScreen();
                 break;
             case R.id.cButton4:
+                if (!grade.equals("4")){
+                    unLockSend();
+                }
                 grade = "4";
                 popupMessage.dismiss();
                 resetScreen();
@@ -237,10 +249,10 @@ public class UpdateReport extends AppCompatActivity {
     //Method for unlocking the send button once a comment has been selected
     private void unLockSend(){
 
-        if (commentSelected){
+
             updateButton.setEnabled(true);
             updateButton.setBackgroundResource(R.drawable.buttonn);
-        }
+
 
     }//unLockSend
 
