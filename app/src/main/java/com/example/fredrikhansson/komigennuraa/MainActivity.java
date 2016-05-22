@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mydb.insertPreliminaryReport(errorId, symptom, "Kommentar saknas...", busId,
                         calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)
-                                +", "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),urgency, status);
+                                +", "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND),urgency, status);
 
 
                 HashMap<String,String> map = BusData.getAllBusInfo(busId);
