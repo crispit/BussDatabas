@@ -6,6 +6,7 @@ package com.example.fredrikhansson.komigennuraa;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,46 +21,44 @@ class SymptomListRowAdapter extends ArrayAdapter<String> {
 
     private final Activity activity;
     private final List<String> symptoms;
-    private String symptom;
-    private final int row;
     private String selectedSymptom;
+    private boolean symptomSet;
 
     public SymptomListRowAdapter(Activity act, List<String> arrayList, String selectedSymptom) {
         super(act,android.R.layout.simple_list_item_1, arrayList);
         this.selectedSymptom=selectedSymptom;
         this.activity = act;
-        this.row = R.layout.row;
         this.symptoms = arrayList;
+        symptomSet=false;
 
     }
 
     @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        String item = getItem(position);
+
+        return (item.equals(selectedSymptom)) ? 0 : 1;
+    }
+
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        ViewHolder holder;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(row, null);
+        View view = super.getView(position,convertView,parent);
 
-            holder = new ViewHolder();
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
-
-
-        //here set your color as per position
-        if (selectedSymptom.equals(symptoms.get(position))){
-            view.setBackgroundResource(R.drawable.list_bg_uncompleted);
+        switch (getItemViewType(position)) {
+            case 0:
+                view.setBackgroundColor(this.getContext().getResources().getColor(R.color.blue));
+                break;
+            case 1:
+                break;
         }
 
         return view;
     }
 
-    public class ViewHolder {
-
-        public TextView errorSymptom, errorGrade, errorComment, errorDate;
-
-    }
 }

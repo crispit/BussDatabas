@@ -44,16 +44,6 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:id="@+id/linearButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
         <Button
             android:id="@+id/updatebutton"
             android:layout_width="196dp"
@@ -66,23 +56,9 @@
             android:height="80dp"
             android:textSize="30sp"
             android:onClick="updateReport"
-             />
-
-        <Button
-            android:id="@+id/deletebutton"
-            android:layout_width="196dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="#ffffff"
-            android:background="@drawable/buttonn_grey"
-            android:text="@string/Delete"
-            android:width="260dp"
-            android:height="80dp"
-            android:textSize="30sp"
-            android:onClick="deleteReport"
-             />
-
-    </LinearLayout>
+            android:layout_weight="27.88"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -90,6 +66,15 @@
         android:id="@+id/editText"
         android:hint= "@string/AddComment"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/linearButtons" />
+        android:layout_above="@id/updatebutton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/UppdateraFelkategori"
+        android:id="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/symptombutton"/>
 
 </RelativeLayout>

@@ -34,6 +34,7 @@ public class UpdateReport extends AppCompatActivity {
     private Button b3;
     private Button b4;
 
+    private String comment;
     private DbHelper mydb;
     private String errorId;
     private String symptom;
@@ -49,7 +50,6 @@ public class UpdateReport extends AppCompatActivity {
 
         //creating buttons and comment field
         updateButton = (Button)findViewById(R.id.updatebutton);
-        deleteButton = (Button)findViewById(R.id.deletebutton);
         symptomButton = (Button)findViewById(R.id.symptombutton);
         gradeButton = (Button) findViewById(R.id.gradebutton);
         commentField = (EditText) findViewById(R.id.editText);
@@ -72,6 +72,8 @@ public class UpdateReport extends AppCompatActivity {
             }
         });
 
+
+
         //fetching the id for the error report
         errorId = getIntent().getStringExtra("errorId");
 
@@ -84,8 +86,12 @@ public class UpdateReport extends AppCompatActivity {
 
         grade = cur.getString(cur.getColumnIndex(DbHelper.COLUMN_NAME_GRADE));
         symptom = cur.getString(cur.getColumnIndex(DbHelper.COLUMN_NAME_SYMPTOM));
+        comment = cur.getString(cur.getColumnIndex(DbHelper.COLUMN_NAME_COMMENT));
         setGradeButtonColor();
         symptomButton.setText(symptom);
+
+        if(!comment.equals("Kommentar saknas..."))
+        commentField.setText(comment);
 
     }//onCreate
 
@@ -129,42 +135,6 @@ public class UpdateReport extends AppCompatActivity {
         setResult(RESULT_OK, i);
         finish();
     }//updateReport
-
-    //Method for deleting reports in the database via a button
-    public void deleteReport (View v){
-
-
-
-
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
-                        mydb.deleteErrorReport(errorId);
-                        Intent i = new Intent();
-                        i.putExtra("action", "delete");
-                        setResult(RESULT_OK, i);
-                        finish();
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        //finish();
-                        break;
-                }
-            }
-        };
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Vill du verkligen radera den här felrapporten?").setNegativeButton("Nej", dialogClickListener)
-                .setPositiveButton("Ja", dialogClickListener).show();
-
-
-
-
-
-    }//deleteReport
 
     //Method for opening a list of symptoms
     public void symptomList(View V){

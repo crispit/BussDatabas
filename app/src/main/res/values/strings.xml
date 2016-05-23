@@ -6,5 +6,6 @@
     <string name="Update">UPPDATERA</string>
     <string name="Grade">Gradering av problem</string>
     <string name="Grade2">Gradering av problem:</string>
+    <string name="UppdateraFelkategori">Uppdatera felkategori</string>
     <string name="Check"> ✔</string>
 </resources>

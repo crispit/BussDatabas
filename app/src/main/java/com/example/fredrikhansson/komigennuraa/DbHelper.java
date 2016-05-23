@@ -19,7 +19,7 @@ class DbHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_SYMPTOM = "Felkategori";
     private static final String COLUMN_NAME_BUSID = "BussID";
     private static final String COLUMN_NAME_DATE = "Datum";
-    private static final String COLUMN_NAME_COMMENT = "Kommentar";
+    public static final String COLUMN_NAME_COMMENT = "Kommentar";
     public static final String COLUMN_NAME_GRADE = "Gradering";
     private static final String COLUMN_NAME_STATUS = "Status";
 
