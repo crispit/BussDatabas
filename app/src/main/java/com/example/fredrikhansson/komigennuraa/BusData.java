@@ -102,11 +102,11 @@ class BusData {
                 busDataMap.put(sensor,getBusInfo(dgwNr,sensor));
             }
             catch (IOException e) {
-                busDataMap.put(sensor,"Error getting data");
+                busDataMap.put(sensor,"Buss-ID:t existerar inte");
 
             }
             catch (EmptyReturnValueException e) {
-                busDataMap.put(sensor,"Platform returned no value");
+                busDataMap.put(sensor,"Plattformen returnerade inget värde");
             }
         }
     }
@@ -114,7 +114,7 @@ class BusData {
     public static HashMap<String,String> getAllBusInfo (String dgwNr){
 
         String[] sensors = getSensors();
-        HashMap<String, String> busDataMap = new HashMap<String, String>(32);
+        HashMap<String, String> busDataMap = new HashMap<>(32);
 
         Thread[] myThreads;
         myThreads = new Thread[sensors.length];
@@ -131,7 +131,7 @@ class BusData {
                 myThreads[j].join();
             }
             catch(InterruptedException e) {
-                busDataMap.put(sensors[j],"Connection to platform was interrupted");
+                busDataMap.put(sensors[j],"Kontakten med plattformen har blivit avbruten.");
             }
         }
         return busDataMap;
