@@ -28,7 +28,7 @@
 
         </activity>
         <activity android:name=".UpdateReport"
-            android:label="Komplettera eller radera felrapport">
+            android:label="Komplettera eller uppdatera felrapport">
 
         </activity>
     </application>
