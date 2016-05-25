@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        busId = "713489";// 100021
+        busId = "Blåa bussen";// 100021
         status = "Okommenterad";
 
 

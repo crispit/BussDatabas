@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Vilken felkategori?"
+        android:text="Vad är felet?"
         android:textSize="24sp"
         android:id="@+id/whatHappened"
         android:layout_below="@+id/Bdisplay"

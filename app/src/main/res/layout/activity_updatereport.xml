@@ -10,6 +10,26 @@
     tools:context="com.example.fredrikhansson.komigennuraa.UpdateReport"
     android:background="@color/colorBackground">
 
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint= "@string/AddComment"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/UppdateraFelkategori"
+        android:id="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/editText"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +40,8 @@
         android:textSize="15sp"
         android:textColor="#ffffff"
         android:onClick="symptomList"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/textView3"
+        android:layout_marginTop="3dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -29,7 +50,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Grade"
         android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/symptombutton"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -40,41 +62,25 @@
         android:scaleType="centerCrop"
         android:background="@drawable/custom_button4"
         android:onClick="setGrade"
-        android:textSize="50sp"
+        android:textSize="50dp"
         android:layout_below="@+id/textView2"
+        android:layout_marginTop="3dp"
         android:layout_centerHorizontal="true" />
 
-        <Button
-            android:id="@+id/updatebutton"
-            android:layout_width="196dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="#ffffff"
-            android:background="@drawable/buttonn_grey"
-            android:text="@string/Update"
-            android:width="260dp"
-            android:height="80dp"
-            android:textSize="30sp"
-            android:onClick="updateReport"
-            android:layout_weight="27.88"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/updatebutton"
+        android:layout_width="196dp"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:hint= "@string/AddComment"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/updatebutton"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/UppdateraFelkategori"
-        android:id="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/symptombutton"/>
+        android:padding="10dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/buttonn_grey"
+        android:text="@string/Update"
+        android:width="260dp"
+        android:height="80dp"
+        android:textSize="30sp"
+        android:onClick="updateReport"
+        android:layout_below="@id/gradebutton"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
