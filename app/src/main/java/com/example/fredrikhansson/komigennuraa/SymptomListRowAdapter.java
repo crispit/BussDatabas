@@ -52,7 +52,7 @@ class SymptomListRowAdapter extends ArrayAdapter<String> {
 
         switch (getItemViewType(position)) {
             case 0:
-                view.setBackgroundColor(this.getContext().getResources().getColor(R.color.blue));
+                view.setBackgroundColor(this.getContext().getResources().getColor(R.color.lightblue));
                 break;
             case 1:
                 break;
