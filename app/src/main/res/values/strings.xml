@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Felrapportering</string>
+    <string name="app_name">Felrapportera</string>
     <string name="hej">Hej</string>
     <string name="AddComment">Fyll i din kommentar till felrapporten.</string>
     <string name="Delete">RADERA</string>
